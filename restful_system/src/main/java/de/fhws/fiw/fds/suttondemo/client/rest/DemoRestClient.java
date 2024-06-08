@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DemoRestClient extends AbstractRestClient {
-    private static final String BASE_URL = "http://localhost:8080/demo/api";
+    private static final String BASE_URL = "http://localhost:8080/demo/api"; //yalnızca burada base URL var
     private static final String GET_ALL_PERSONS = "getAllPersons";
     private static final String CREATE_PERSON = "createPerson";
 

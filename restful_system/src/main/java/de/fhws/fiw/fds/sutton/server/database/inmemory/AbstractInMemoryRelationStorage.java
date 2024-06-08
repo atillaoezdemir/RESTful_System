@@ -113,19 +113,19 @@ public abstract class AbstractInMemoryRelationStorage<T extends AbstractModel> {
 		return errorResult;
 	}
 
-	protected SingleModelResult<T> clone(final long primaryId, final SingleModelResult<T> result) {
+	private SingleModelResult<T> clone(final long primaryId, final SingleModelResult<T> result) {
 		return new SingleModelResult<>(clone(primaryId, result.getResult()));
 	}
 
-	protected CollectionModelResult<T> clone(final long primaryId, final CollectionModelResult<T> result) {
+	private CollectionModelResult<T> clone(final long primaryId, final CollectionModelResult<T> result) {
 		return new CollectionModelResult<>(clone(primaryId, result.getResult()));
 	}
 
-	protected Collection<T> clone(final long primaryId, final Collection<T> result) {
+	private Collection<T> clone(final long primaryId, final Collection<T> result) {
 		return result.stream().map(e -> clone(primaryId, e)).collect(Collectors.toList());
 	}
 
-	protected T clone(final long primaryId, final T result) {
+	private T clone(final long primaryId, final T result) {
 		final T clone = (T) ObjectUtils.cloneIfPossible(result);
 		clone.setPrimaryId(primaryId);
 		return clone;
