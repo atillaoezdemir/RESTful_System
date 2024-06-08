@@ -1,4 +1,4 @@
-package de.fhws.fiw.fds.suttondemo.server.api.states.locations;
+package de.fhws.fiw.fds.suttondemo.server.api.states.modules;
 
 import de.fhws.fiw.fds.sutton.server.api.caching.CachingUtils;
 import de.fhws.fiw.fds.sutton.server.api.caching.EtagGenerator;
@@ -6,21 +6,20 @@ import de.fhws.fiw.fds.sutton.server.api.services.ServiceContext;
 import de.fhws.fiw.fds.sutton.server.api.states.get.AbstractGetState;
 import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
 import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
-import de.fhws.fiw.fds.suttondemo.server.api.models.Location;
-import de.fhws.fiw.fds.suttondemo.server.api.states.persons.PersonUri;
+import de.fhws.fiw.fds.suttondemo.server.api.models.Module;
 import de.fhws.fiw.fds.suttondemo.server.database.DaoFactory;
 import jakarta.ws.rs.core.Response;
 
-public class GetSingleLocation extends AbstractGetState<Response, Location> {
+public class GetSingleModule extends AbstractGetState<Response, Module> {
 
-    public GetSingleLocation(ServiceContext serviceContext, long requestedId) {
+    public GetSingleModule(ServiceContext serviceContext, long requestedId) {
         super(serviceContext, requestedId);
     }
 
 
-    @Override protected SingleModelResult<Location> loadModel( )
+    @Override protected SingleModelResult<Module> loadModel( )
     {
-        return DaoFactory.getInstance( ).getLocationDao( ).readById( this.requestedId );
+        return DaoFactory.getInstance( ).getModuleDao( ).readById( this.requestedId );
     }
 
     @Override
@@ -37,9 +36,9 @@ public class GetSingleLocation extends AbstractGetState<Response, Location> {
 
     @Override protected void defineTransitionLinks( )
     {
-        addLink( LocationUri.REL_PATH_ID, LocationRelTypes.UPDATE_SINGLE_LOCATION, getAcceptRequestHeader( ),
+        addLink( ModuleUri.REL_PATH_ID, ModuleRelTypes.UPDATE_SINGLE_MODULE, getAcceptRequestHeader( ),
                 this.requestedId );
-        addLink( PersonUri.REL_PATH_ID, LocationRelTypes.DELETE_SINGLE_LOCATION, getAcceptRequestHeader( ),
+        addLink( ModuleUri.REL_PATH_ID, ModuleRelTypes.DELETE_SINGLE_MODULE, getAcceptRequestHeader( ),
                 this.requestedId );
     }
 }

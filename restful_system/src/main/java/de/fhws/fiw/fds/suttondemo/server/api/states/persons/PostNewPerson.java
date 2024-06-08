@@ -20,13 +20,13 @@ import de.fhws.fiw.fds.sutton.server.api.serviceAdapters.responseAdapter.JerseyR
 import de.fhws.fiw.fds.sutton.server.api.services.ServiceContext;
 import de.fhws.fiw.fds.sutton.server.api.states.post.AbstractPostState;
 import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
-import de.fhws.fiw.fds.suttondemo.server.api.models.Person;
+import de.fhws.fiw.fds.suttondemo.server.api.models.University;
 import de.fhws.fiw.fds.suttondemo.server.database.DaoFactory;
 import jakarta.ws.rs.core.Response;
 
-public class PostNewPerson extends AbstractPostState<Response, Person> {
+public class PostNewPerson extends AbstractPostState<Response, University> {
 
-    public PostNewPerson(ServiceContext serviceContext, Person modelToStore) {
+    public PostNewPerson(ServiceContext serviceContext, University modelToStore) {
         super(serviceContext, modelToStore);
         this.suttonResponse = new JerseyResponse<>();
     }

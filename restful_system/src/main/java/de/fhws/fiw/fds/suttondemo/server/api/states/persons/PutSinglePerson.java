@@ -23,19 +23,19 @@ import de.fhws.fiw.fds.sutton.server.api.states.put.AbstractPutState;
 import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
 import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
 import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
-import de.fhws.fiw.fds.suttondemo.server.api.models.Person;
+import de.fhws.fiw.fds.suttondemo.server.api.models.University;
 import de.fhws.fiw.fds.suttondemo.server.database.DaoFactory;
 import jakarta.ws.rs.core.Response;
 
-public class PutSinglePerson extends AbstractPutState<Response, Person> {
+public class PutSinglePerson extends AbstractPutState<Response, University> {
 
-    public PutSinglePerson(ServiceContext serviceContext, long requestedId, Person modelToUpdate) {
+    public PutSinglePerson(ServiceContext serviceContext, long requestedId, University modelToUpdate) {
         super(serviceContext, requestedId, modelToUpdate);
         this.suttonResponse = new JerseyResponse<>();
     }
 
     @Override
-    protected SingleModelResult<Person> loadModel() {
+    protected SingleModelResult<University> loadModel() {
         return DaoFactory.getInstance().getPersonDao().readById(this.modelToUpdate.getId());
     }
 

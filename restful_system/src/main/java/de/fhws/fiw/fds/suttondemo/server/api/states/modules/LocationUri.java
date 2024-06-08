@@ -1,4 +1,4 @@
-package de.fhws.fiw.fds.suttondemo.server.api.states.locations;
+package de.fhws.fiw.fds.suttondemo.server.api.states.modules;
 
 import de.fhws.fiw.fds.suttondemo.Start;
 

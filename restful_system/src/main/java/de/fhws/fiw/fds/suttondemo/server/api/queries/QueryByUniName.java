@@ -19,40 +19,29 @@ import de.fhws.fiw.fds.sutton.server.api.queries.PagingBehaviorUsingOffsetSize;
 import de.fhws.fiw.fds.sutton.server.database.DatabaseException;
 import de.fhws.fiw.fds.sutton.server.database.SearchParameter;
 import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
-import de.fhws.fiw.fds.suttondemo.server.api.models.Person;
+import de.fhws.fiw.fds.suttondemo.server.api.models.University;
 import de.fhws.fiw.fds.suttondemo.server.database.DaoFactory;
 
-public class QueryByFirstAndLastName<R> extends AbstractQuery<R, Person> {
+public class QueryByUniName<R> extends AbstractQuery<R, University> {
 
-    private String firstName;
-    private String lastName;
+private String uniName;
 
-    public QueryByFirstAndLastName(String firstName, String lastName, int offset, int size) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public QueryByUniName(String uniName, int offset, int size) {
+        this.uniName = uniName;
         this.pagingBehavior = new PagingBehaviorUsingOffsetSize<>(offset, size);
     }
 
-    public String getFirstName() {
-        return this.firstName;
+    public String getUniName() {
+        return uniName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setUniName(String uniName) {
+        this.uniName = uniName;
     }
 
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    protected CollectionModelResult<Person> doExecuteQuery(SearchParameter searchParameter) throws DatabaseException {
-        return DaoFactory.getInstance().getPersonDao().readByFirstNameAndLastName(
-                this.firstName,
-                this.lastName,
+    protected CollectionModelResult<University> doExecuteQuery(SearchParameter searchParameter) throws DatabaseException {
+        return DaoFactory.getInstance().getUniversityDao().readByUniName(
+                this.uniName,
                 searchParameter);
     }
 

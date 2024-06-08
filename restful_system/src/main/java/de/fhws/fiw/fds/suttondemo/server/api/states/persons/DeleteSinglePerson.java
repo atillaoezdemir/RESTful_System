@@ -21,11 +21,11 @@ import de.fhws.fiw.fds.sutton.server.api.services.ServiceContext;
 import de.fhws.fiw.fds.sutton.server.api.states.delete.AbstractDeleteState;
 import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
 import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
-import de.fhws.fiw.fds.suttondemo.server.api.models.Person;
+import de.fhws.fiw.fds.suttondemo.server.api.models.University;
 import de.fhws.fiw.fds.suttondemo.server.database.DaoFactory;
 import jakarta.ws.rs.core.Response;
 
-public class DeleteSinglePerson extends AbstractDeleteState<Response, Person> {
+public class DeleteSinglePerson extends AbstractDeleteState<Response, University> {
 
     public DeleteSinglePerson(ServiceContext serviceContext, long modelIdToDelete) {
         super(serviceContext, modelIdToDelete);
@@ -33,7 +33,7 @@ public class DeleteSinglePerson extends AbstractDeleteState<Response, Person> {
     }
 
     @Override
-    protected SingleModelResult<Person> loadModel() {
+    protected SingleModelResult<University> loadModel() {
         return DaoFactory.getInstance().getPersonDao().readById(this.modelIdToDelete);
     }
 

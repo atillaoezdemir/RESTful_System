@@ -5,11 +5,11 @@ import de.fhws.fiw.fds.sutton.server.database.SearchParameter;
 import de.fhws.fiw.fds.sutton.server.database.inmemory.AbstractInMemoryRelationStorage;
 import de.fhws.fiw.fds.sutton.server.database.inmemory.InMemoryPaging;
 import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
-import de.fhws.fiw.fds.suttondemo.server.api.models.Location;
+import de.fhws.fiw.fds.suttondemo.server.api.models.Module;
 import de.fhws.fiw.fds.suttondemo.server.database.LocationDao;
 import de.fhws.fiw.fds.suttondemo.server.database.PersonLocationDao;
 
-public class PersonLocationStorage extends AbstractInMemoryRelationStorage<Location> implements PersonLocationDao {
+public class PersonLocationStorage extends AbstractInMemoryRelationStorage<Module> implements PersonLocationDao {
     final private LocationDao locationStorage;
 
     public PersonLocationStorage(LocationDao locationStorage) {
@@ -17,12 +17,12 @@ public class PersonLocationStorage extends AbstractInMemoryRelationStorage<Locat
     }
 
     @Override
-    protected IDatabaseAccessObject<Location> getSecondaryStorage() {
+    protected IDatabaseAccessObject<Module> getSecondaryStorage() {
         return this.locationStorage;
     }
 
     @Override
-    public CollectionModelResult<Location> readByCityName(long primaryId, String cityName, SearchParameter searchParameter) {
+    public CollectionModelResult<Module> readByCityName(long primaryId, String cityName, SearchParameter searchParameter) {
         return InMemoryPaging.page(
                 this.readAllLinkedByPredicate(primaryId, (p) -> cityName.isEmpty() || p.getCityName().equals(cityName)),
                 searchParameter.getOffset(), searchParameter.getSize()
@@ -30,7 +30,7 @@ public class PersonLocationStorage extends AbstractInMemoryRelationStorage<Locat
     }
 
     @Override
-    public CollectionModelResult<Location> readAllLinked(long primaryId, SearchParameter searchParameter) {
+    public CollectionModelResult<Module> readAllLinked(long primaryId, SearchParameter searchParameter) {
         return InMemoryPaging.page(
                 this.readAllLinkedByPredicate(primaryId, (p) -> true),
                 searchParameter.getOffset(), searchParameter.getSize()

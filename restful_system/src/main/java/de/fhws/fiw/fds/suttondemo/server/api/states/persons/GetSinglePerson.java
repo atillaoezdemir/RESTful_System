@@ -23,13 +23,13 @@ import de.fhws.fiw.fds.sutton.server.api.services.ServiceContext;
 import de.fhws.fiw.fds.sutton.server.api.states.get.AbstractGetState;
 import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
 import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
-import de.fhws.fiw.fds.suttondemo.server.api.models.Person;
-import de.fhws.fiw.fds.suttondemo.server.api.states.person_locations.PersonLocationRelTypes;
-import de.fhws.fiw.fds.suttondemo.server.api.states.person_locations.PersonLocationUri;
+import de.fhws.fiw.fds.suttondemo.server.api.models.University;
+import de.fhws.fiw.fds.suttondemo.server.api.states.university_modules.PersonLocationRelTypes;
+import de.fhws.fiw.fds.suttondemo.server.api.states.university_modules.UniversityModuleUri;
 import de.fhws.fiw.fds.suttondemo.server.database.DaoFactory;
 import jakarta.ws.rs.core.Response;
 
-public class GetSinglePerson extends AbstractGetState<Response, Person> {
+public class GetSinglePerson extends AbstractGetState<Response, University> {
 
     public GetSinglePerson(ServiceContext serviceContext, long requestedId) {
         super(serviceContext, requestedId);
@@ -37,7 +37,7 @@ public class GetSinglePerson extends AbstractGetState<Response, Person> {
     }
 
     @Override
-    protected SingleModelResult<Person> loadModel() {
+    protected SingleModelResult<University> loadModel() {
         return DaoFactory.getInstance().getPersonDao().readById(this.requestedId);
     }
 
@@ -59,7 +59,7 @@ public class GetSinglePerson extends AbstractGetState<Response, Person> {
                 this.requestedId );
         addLink( PersonUri.REL_PATH_ID, PersonRelTypes.DELETE_SINGLE_PERSON, getAcceptRequestHeader( ),
                 this.requestedId );
-        addLink( PersonLocationUri.REL_PATH, PersonLocationRelTypes.CREATE_LOCATION, getAcceptRequestHeader( ),
+        addLink( UniversityModuleUri.REL_PATH, PersonLocationRelTypes.CREATE_LOCATION, getAcceptRequestHeader( ),
                 this.requestedId );
     }
 }

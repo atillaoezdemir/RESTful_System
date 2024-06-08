@@ -1,4 +1,4 @@
-package de.fhws.fiw.fds.suttondemo.server.api.states.locations;
+package de.fhws.fiw.fds.suttondemo.server.api.states.modules;
 
 import de.fhws.fiw.fds.sutton.server.api.caching.CachingUtils;
 import de.fhws.fiw.fds.sutton.server.api.services.ServiceContext;
@@ -6,13 +6,13 @@ import de.fhws.fiw.fds.sutton.server.api.states.put.AbstractPutState;
 import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
 import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
 import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
-import de.fhws.fiw.fds.suttondemo.server.api.models.Location;
+import de.fhws.fiw.fds.suttondemo.server.api.models.Module;
 import de.fhws.fiw.fds.suttondemo.server.database.DaoFactory;
 import jakarta.ws.rs.core.Response;
 
-public class PutSingleLocation extends AbstractPutState<Response, Location> {
+public class PutSingleModule extends AbstractPutState<Response, Module> {
 
-    public PutSingleLocation(ServiceContext serviceContext, long requestedId, Location modelToUpdate) {
+    public PutSingleModule(ServiceContext serviceContext, long requestedId, Module modelToUpdate) {
         super(serviceContext, requestedId, modelToUpdate);
     }
 
@@ -27,19 +27,19 @@ public class PutSingleLocation extends AbstractPutState<Response, Location> {
         this.suttonResponse.cacheControl(CachingUtils.create30SecondsPublicCaching());
     }
 
-    @Override protected SingleModelResult<Location> loadModel( )
+    @Override protected SingleModelResult<Module> loadModel( )
     {
-        return DaoFactory.getInstance( ).getLocationDao( ).readById( this.modelToUpdate.getId( ) );
+        return DaoFactory.getInstance( ).getModuleDao( ).readById( this.modelToUpdate.getId( ) );
     }
 
     @Override protected NoContentResult updateModel( )
     {
-        return DaoFactory.getInstance( ).getLocationDao( ).update( this.modelToUpdate );
+        return DaoFactory.getInstance( ).getModuleDao( ).update( this.modelToUpdate );
     }
 
     @Override protected void defineTransitionLinks( )
     {
-        addLink( LocationUri.REL_PATH_ID, LocationRelTypes.GET_SINGLE_LOCATION, getAcceptRequestHeader( ),
+        addLink( LocationUri.REL_PATH_ID, ModuleRelTypes.GET_SINGLE_MODULE, getAcceptRequestHeader( ),
                 this.modelToUpdate.getId( ) );
     }
 }

@@ -16,34 +16,30 @@ package de.fhws.fiw.fds.suttondemo.server.api.services;
 
 import de.fhws.fiw.fds.sutton.server.api.serviceAdapters.Exceptions.SuttonWebAppException;
 import de.fhws.fiw.fds.sutton.server.api.services.AbstractJerseyService;
-import de.fhws.fiw.fds.suttondemo.server.api.models.Location;
-import de.fhws.fiw.fds.suttondemo.server.api.models.Person;
-import de.fhws.fiw.fds.suttondemo.server.api.queries.QueryByFirstAndLastName;
-import de.fhws.fiw.fds.suttondemo.server.api.queries.QueryByLocationName;
-import de.fhws.fiw.fds.suttondemo.server.api.states.person_locations.*;
-import de.fhws.fiw.fds.suttondemo.server.api.states.persons.*;
+import de.fhws.fiw.fds.suttondemo.server.api.models.Module;
+import de.fhws.fiw.fds.suttondemo.server.api.models.University;
+import de.fhws.fiw.fds.suttondemo.server.api.queries.QueryByUniName;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("persons")
-public class PersonJerseyService extends AbstractJerseyService {
+@Path("universities")
+public class UniversityJerseyService extends AbstractJerseyService {
 
-    public PersonJerseyService() {
+    public UniversityJerseyService() {
         super();
     }
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response getAllPersons(
-            @DefaultValue("") @QueryParam("firstname") final String firstName,
-            @DefaultValue("") @QueryParam("lastname") final String lastName,
+    public Response getAllUniversities(
+            @DefaultValue("") @QueryParam("uniname") final String uniName,
             @DefaultValue("0") @QueryParam("offset") int offset,
             @DefaultValue("20") @QueryParam("size") int size) {
         try {
-            return new GetAllPersons(
+            return new GetAllUniversities(
                     this.serviceContext,
-                    new QueryByFirstAndLastName<>(firstName, lastName, offset, size)
+                    new QueryByUniName<>(uniName, offset, size)
             ).execute();
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(e.getExceptionMessage(), e.getStatus().getCode());
@@ -53,9 +49,9 @@ public class PersonJerseyService extends AbstractJerseyService {
     @GET
     @Path("{id: \\d+}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response getSinglePerson(@PathParam("id") final long id) {
+    public Response getSingleUniversity(@PathParam("id") final long id) {
         try {
-            return new GetSinglePerson(this.serviceContext, id).execute();
+            return new GetSingleUniversity(this.serviceContext, id).execute();
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(Response
                     .status(e.getStatus().getCode())
@@ -66,9 +62,9 @@ public class PersonJerseyService extends AbstractJerseyService {
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response createSinglePerson(final Person personModel) {
+    public Response createSingleUniversity(final University universityModel) {
         try {
-            return new PostNewPerson(this.serviceContext, personModel).execute();
+            return new PostNewUniversity(this.serviceContext, universityModel).execute();
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(Response.status(e.getStatus().getCode())
                     .entity(e.getExceptionMessage()).build());
@@ -78,9 +74,9 @@ public class PersonJerseyService extends AbstractJerseyService {
     @PUT
     @Path("{id: \\d+}")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response updateSinglePerson(@PathParam("id") final long id, final Person personModel) {
+    public Response updateSingleUniversity(@PathParam("id") final long id, final University universityModel) {
         try {
-            return new PutSinglePerson(this.serviceContext, id, personModel).execute();
+            return new PutSingleUniversity(this.serviceContext, id, universityModel).execute();
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(Response.status(e.getStatus().getCode())
                     .entity(e.getExceptionMessage()).build());
@@ -90,9 +86,9 @@ public class PersonJerseyService extends AbstractJerseyService {
     @DELETE
     @Path("{id: \\d+}")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response deleteSinglePerson(@PathParam("id") final long id) {
+    public Response deleteSingleUniversity(@PathParam("id") final long id) {
         try {
-            return new DeleteSinglePerson(this.serviceContext, id).execute();
+            return new DeleteSingleUniversity(this.serviceContext, id).execute();
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(Response.status(e.getStatus().getCode())
                     .entity(e.getExceptionMessage()).build());
@@ -100,14 +96,11 @@ public class PersonJerseyService extends AbstractJerseyService {
     }
 
     @GET
-    @Path("{personId: \\d+}/locations")
+    @Path("{universityId: \\d+}/modules")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response getLocationsOfPerson(@PathParam("personId") final long personId,
-                                         @DefaultValue("") @QueryParam("cityname") final String cityName,
-                                         @DefaultValue("0") @QueryParam("offset") int offset,
-                                         @DefaultValue("20") @QueryParam("size") int size) {
+    public Response getModulesOfUniversity(@PathParam("universityId") final long universityId) {
         try {
-            return new GetAllLocationsOfPerson(this.serviceContext, personId, new QueryByLocationName<>(personId, cityName, offset, size)).execute();
+            return new GetAllModulesOfUniversity(this.serviceContext, universityId).execute();
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(Response.status(e.getStatus().getCode())
                     .entity(e.getExceptionMessage()).build());
@@ -115,12 +108,12 @@ public class PersonJerseyService extends AbstractJerseyService {
     }
 
     @GET
-    @Path("{personId: \\d+}/locations/{locationId: \\d+}")
+    @Path("{universityId: \\d+}/modules/{moduleId: \\d+}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response getLocationByIdOfPerson(@PathParam("personId") final long personId,
-                                            @PathParam("locationId") final long locationId) {
+    public Response getModuleByIdOfUniversity(@PathParam("universityId") final long universityId,
+                                            @PathParam("moduleId") final long moduleId) {
         try {
-            return new GetSingleLocationOfPerson( this.serviceContext, personId, locationId ).execute();
+            return new GetSingleModuleOfUniversity( this.serviceContext, universityId, moduleId ).execute();
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(Response.status(e.getStatus().getCode())
                     .entity(e.getExceptionMessage()).build());
@@ -128,11 +121,11 @@ public class PersonJerseyService extends AbstractJerseyService {
     }
 
     @POST
-    @Path("{personId: \\d+}/locations")
+    @Path("{universityId: \\d+}/locations")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response createNewLocationOfPerson(@PathParam("personId") final long personId, final Location location) {
+    public Response createNewModuleOfUniversity(@PathParam("universityId") final long universityId, final Module module) {
         try {
-            return new PostNewLocationOfPerson( this.serviceContext, personId, location ).execute();
+            return new PostNewLocationOfUniversity( this.serviceContext, universityId, module).execute();
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(Response.status(e.getStatus().getCode())
                     .entity(e.getExceptionMessage()).build());
@@ -140,12 +133,12 @@ public class PersonJerseyService extends AbstractJerseyService {
     }
 
     @PUT
-    @Path("{personId: \\d+}/locations/{locationId: \\d+}")
+    @Path("{universityId: \\d+}/locations/{locationId: \\d+}")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response updateNewLocationOfPerson(@PathParam("personId") final long personId,
-                                              @PathParam("locationId") final long locationId, final Location location) {
+    public Response updateNewModuleOfUniversity(@PathParam("universityId") final long universityId,
+                                              @PathParam("moduleId") final long moduleId, final Module module) {
         try {
-            return new PutSingleLocationOfPerson( this.serviceContext, personId, locationId, location ).execute();
+            return new PutSingleLocationOfUniversity( this.serviceContext, universityId, moduleId, module).execute();
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(Response.status(e.getStatus().getCode())
                     .entity(e.getExceptionMessage()).build());
@@ -153,11 +146,11 @@ public class PersonJerseyService extends AbstractJerseyService {
     }
 
     @DELETE
-    @Path("{personId: \\d+}/locations/{locationId: \\d+}")
-    public Response deleteLocationOfPerson(@PathParam("personId") final long personId,
-                                           @PathParam("locationId") final long locationId) {
+    @Path("{universityId: \\d+}/modules/{moduleId: \\d+}")
+    public Response deleteLocationOfUniversity(@PathParam("universityId") final long universityId,
+                                           @PathParam("moduleId") final long moduleId) {
         try {
-            return new DeleteSingleLocationOfPerson( this.serviceContext, locationId, personId ).execute();
+            return new DeleteSingleLocationOfUniversity( this.serviceContext, moduleId, universityId ).execute();
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(Response.status(e.getStatus().getCode())
                     .entity(e.getExceptionMessage()).build());

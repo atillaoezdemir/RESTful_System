@@ -17,12 +17,12 @@ package de.fhws.fiw.fds.suttondemo.server.database;
 import de.fhws.fiw.fds.sutton.server.database.IDatabaseAccessObject;
 import de.fhws.fiw.fds.sutton.server.database.SearchParameter;
 import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
-import de.fhws.fiw.fds.suttondemo.server.api.models.Person;
+import de.fhws.fiw.fds.suttondemo.server.api.models.University;
 
-public interface PersonDao extends IDatabaseAccessObject<Person> {
+public interface PersonDao extends IDatabaseAccessObject<University> {
 
-    CollectionModelResult<Person> readByFirstNameAndLastName(String firstName, String lastName,
-                                                             SearchParameter searchParameter);
+    CollectionModelResult<University> readByFirstNameAndLastName(String firstName, String lastName,
+                                                                 SearchParameter searchParameter);
 
     void resetDatabase();
 }
