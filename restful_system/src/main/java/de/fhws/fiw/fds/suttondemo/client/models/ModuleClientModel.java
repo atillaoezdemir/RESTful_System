@@ -24,13 +24,13 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
 
 @XmlRootElement
-public class PersonClientModel extends AbstractClientModel {
+public class ModuleClientModel extends AbstractClientModel {
 
-    private String firstName;
-    private String lastName;
+    private String moduleName;
 
-    private LocalDate birthDate = LocalDate.of(1970, 1, 1);
-    private String emailAddress;
+    private int semester; // 1 -> Spring semester, 2 -> Autumn semester
+
+    private int creditPoints;
 
     @JsonDeserialize(using = ClientLinkJsonConverter.class)
     private Link selfLink;
@@ -38,47 +38,39 @@ public class PersonClientModel extends AbstractClientModel {
     @JsonDeserialize(using = ClientLinkJsonConverter.class)
     private Link location;
 
-    public PersonClientModel() {
+    public ModuleClientModel() {
     }
 
-    public PersonClientModel(final String firstname, final String lastname,
-                             final String emailAddress, final LocalDate birthdate) {
-        this.firstName = firstname;
-        this.lastName = lastname;
-        this.birthDate = birthdate;
-        this.emailAddress = emailAddress;
+    public ModuleClientModel(String moduleName, int semester, int creditPoints, Link selfLink, Link location) {
+        this.moduleName = moduleName;
+        this.semester = semester;
+        this.creditPoints = creditPoints;
+        this.selfLink = selfLink;
+        this.location = location;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getModuleName() {
+        return moduleName;
     }
 
-    public void setFirstName(final String firstName) {
-        this.firstName = firstName;
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public int getSemester() {
+        return semester;
     }
 
-    public void setLastName(final String lastName) {
-        this.lastName = lastName;
+    public void setSemester(int semester) {
+        this.semester = semester;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public int getCreditPoints() {
+        return creditPoints;
     }
 
-    public void setBirthDate(final LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    public void setEmailAddress(final String emailAddress) {
-        this.emailAddress = emailAddress;
+    public void setCreditPoints(int creditPoints) {
+        this.creditPoints = creditPoints;
     }
 
     @JsonIgnore
@@ -101,9 +93,13 @@ public class PersonClientModel extends AbstractClientModel {
 
     @Override
     public String toString() {
-        return "Person{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='"
-                + lastName + '\'' + ", birthDate=" + birthDate + ", emailAddress='" + emailAddress
-                + '\'' + '}';
+        return "ModuleClientModel{" +
+                "moduleName='" + moduleName + '\'' +
+                ", semester=" + semester +
+                ", creditPoints=" + creditPoints +
+                ", selfLink=" + selfLink +
+                ", location=" + location +
+                ", id=" + id +
+                '}';
     }
-
 }

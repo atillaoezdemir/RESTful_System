@@ -2,9 +2,9 @@ package de.fhws.fiw.fds.suttondemo.client.rest;
 
 
 import de.fhws.fiw.fds.sutton.client.rest2.AbstractRestClient;
-import de.fhws.fiw.fds.suttondemo.client.models.LocationClientModel;
-import de.fhws.fiw.fds.suttondemo.client.models.PersonClientModel;
-import de.fhws.fiw.fds.suttondemo.client.web.PersonWebClient;
+import de.fhws.fiw.fds.suttondemo.client.models.UniversityClientModel;
+import de.fhws.fiw.fds.suttondemo.client.models.ModuleClientModel;
+import de.fhws.fiw.fds.suttondemo.client.web.UniversityWebClient;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -13,22 +13,22 @@ import java.util.List;
 
 public class DemoRestClient extends AbstractRestClient {
     private static final String BASE_URL = "http://localhost:8080/demo/api"; //yalnızca burada base URL var
-    private static final String GET_ALL_PERSONS = "getAllPersons";
-    private static final String CREATE_PERSON = "createPerson";
+    private static final String GET_ALL_UNIVERSITIES = "getAllUniversities";
+    private static final String CREATE_UNIVERSITY = "createUniversity";
 
 
-    private List<PersonClientModel> currentPersonData;
-    private int cursorPersonData = 0;
+    private List<ModuleClientModel> currentUniversityData;
+    private int cursorUniversityData = 0;
 
-    private List<LocationClientModel> currentLocationData;
-    private int cursorLocationData = 0;
+    private List<UniversityClientModel> currentModuleData;
+    private int cursorModuleData = 0;
 
-    final private PersonWebClient client;
+    final private UniversityWebClient client;
 
     public DemoRestClient() {
         super();
-        this.client = new PersonWebClient();
-        this.currentPersonData = Collections.EMPTY_LIST;
+        this.client = new UniversityWebClient();
+        this.currentUniversityData = Collections.EMPTY_LIST;
     }
 
     public void resetDatabase() throws IOException {
@@ -41,76 +41,76 @@ public class DemoRestClient extends AbstractRestClient {
         });
     }
 
-    public boolean isCreatePersonAllowed() {
-        return isLinkAvailable(CREATE_PERSON);
+    public boolean isCreateUniversityAllowed() {
+        return isLinkAvailable(CREATE_UNIVERSITY);
     }
 
-    public void createPerson(PersonClientModel person) throws IOException {
-        if (isCreatePersonAllowed()) {
-            processResponse(this.client.postNewPerson(getUrl(CREATE_PERSON), person), (response) -> {
-                this.currentPersonData = Collections.EMPTY_LIST;
-                this.cursorPersonData = 0;
+    public void createUniversity(ModuleClientModel university) throws IOException {
+        if (isCreateUniversityAllowed()) {
+            processResponse(this.client.postNewUniversity(getUrl(CREATE_UNIVERSITY), university), (response) -> {
+                this.currentUniversityData = Collections.EMPTY_LIST;
+                this.cursorUniversityData = 0;
             });
         } else {
             throw new IllegalStateException();
         }
     }
 
-    public boolean isGetAllPersonsAllowed() {
-        return isLinkAvailable(GET_ALL_PERSONS);
+    public boolean isGetAllUniversitiesAllowed() {
+        return isLinkAvailable(GET_ALL_UNIVERSITIES);
     }
 
-    public void getAllPersons() throws IOException {
-        if (isGetAllPersonsAllowed()) {
-            processResponse(this.client.getCollectionOfPersons(getUrl(GET_ALL_PERSONS)), (response) -> {
-                this.currentPersonData = new LinkedList(response.getResponseData());
-                this.cursorPersonData = 0;
+    public void getAllUniversities() throws IOException {
+        if (isGetAllUniversitiesAllowed()) {
+            processResponse(this.client.getCollectionOfUniversities(getUrl(GET_ALL_UNIVERSITIES)), (response) -> {
+                this.currentUniversityData = new LinkedList(response.getResponseData());
+                this.cursorUniversityData = 0;
             });
         } else {
             throw new IllegalStateException();
         }
     }
 
-    public boolean isGetSinglePersonAllowed() {
-        return !this.currentPersonData.isEmpty() || isLocationHeaderAvailable();
+    public boolean isGetSingleUniversityAllowed() {
+        return !this.currentUniversityData.isEmpty() || isLocationHeaderAvailable();
     }
 
-    public List<PersonClientModel> personData() {
-        if (this.currentPersonData.isEmpty()) {
+    public List<ModuleClientModel> universityData() {
+        if (this.currentUniversityData.isEmpty()) {
             throw new IllegalStateException();
         }
 
-        return this.currentPersonData;
+        return this.currentUniversityData;
     }
 
-    public void setPersonCursor(int index) {
-        if (0 <= index && index < this.currentPersonData.size()) {
-            this.cursorPersonData = index;
+    public void setUniversityCursor(int index) {
+        if (0 <= index && index < this.currentUniversityData.size()) {
+            this.cursorUniversityData= index;
         } else {
             throw new IllegalArgumentException();
         }
     }
 
-    public void getSinglePerson() throws IOException {
+    public void getSingleUniversity() throws IOException {
         if ( isLocationHeaderAvailable()) {
-            getSinglePerson(getLocationHeaderURL());
+            getSingleUniversity(getLocationHeaderURL());
         }
-        else if (!this.currentPersonData.isEmpty()) {
-            getSinglePerson(this.cursorPersonData);
+        else if (!this.currentUniversityData.isEmpty()) {
+            getSingleUniversity(this.cursorUniversityData);
         }
         else {
             throw new IllegalStateException();
         }
     }
 
-    public void getSinglePerson(int index) throws IOException {
-        getSinglePerson(this.currentPersonData.get(index).getSelfLink().getUrl());
+    public void getSingleUniversity(int index) throws IOException {
+        getSingleUniversity(this.currentUniversityData.get(index).getSelfLink().getUrl());
     }
 
-    private void getSinglePerson(String url) throws IOException {
-        processResponse(this.client.getSinglePerson(url), (response) -> {
-            this.currentPersonData = new LinkedList(response.getResponseData());
-            this.cursorPersonData = 0;
+    private void getSingleUniversity(String url) throws IOException {
+        processResponse(this.client.getSingleUniversity(url), (response) -> {
+            this.currentUniversityData = new LinkedList(response.getResponseData());
+            this.cursorUniversityData = 0;
         });
     }
 

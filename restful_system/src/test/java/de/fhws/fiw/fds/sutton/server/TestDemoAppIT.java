@@ -2,7 +2,7 @@ package de.fhws.fiw.fds.sutton.server;
 
 
 import com.github.javafaker.Faker;
-import de.fhws.fiw.fds.suttondemo.client.models.PersonClientModel;
+import de.fhws.fiw.fds.suttondemo.client.models.ModuleClientModel;
 import de.fhws.fiw.fds.suttondemo.client.rest.DemoRestClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,7 +45,7 @@ public class TestDemoAppIT {
     {
         client.start();
 
-        var person = new PersonClientModel();
+        var person = new ModuleClientModel();
         person.setFirstName("Max");
         person.setLastName("Mustermann");
         person.setBirthDate(LocalDate.of( 1990, 1, 1));
@@ -59,7 +59,7 @@ public class TestDemoAppIT {
     {
         client.start();
 
-        var person = new PersonClientModel();
+        var person = new ModuleClientModel();
         person.setFirstName("Max");
         person.setLastName("Mustermann");
         person.setBirthDate(LocalDate.of( 1990, 1, 1));
@@ -86,7 +86,7 @@ public class TestDemoAppIT {
         for( int i=0; i<5; i++ ) {
             client.start();
 
-            var person = new PersonClientModel();
+            var person = new ModuleClientModel();
             person.setFirstName(faker.name().firstName());
             person.setLastName(faker.name().lastName());
             person.setBirthDate(LocalDate.of(1990, 1, 1));
