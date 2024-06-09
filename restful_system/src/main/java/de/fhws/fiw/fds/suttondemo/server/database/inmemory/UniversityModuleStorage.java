@@ -6,25 +6,25 @@ import de.fhws.fiw.fds.sutton.server.database.inmemory.AbstractInMemoryRelationS
 import de.fhws.fiw.fds.sutton.server.database.inmemory.InMemoryPaging;
 import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
 import de.fhws.fiw.fds.suttondemo.server.api.models.Module;
-import de.fhws.fiw.fds.suttondemo.server.database.LocationDao;
-import de.fhws.fiw.fds.suttondemo.server.database.PersonLocationDao;
+import de.fhws.fiw.fds.suttondemo.server.database.ModuleDao;
+import de.fhws.fiw.fds.suttondemo.server.database.UniversityModuleDao;
 
-public class PersonLocationStorage extends AbstractInMemoryRelationStorage<Module> implements PersonLocationDao {
-    final private LocationDao locationStorage;
+public class UniversityModuleStorage extends AbstractInMemoryRelationStorage<Module> implements UniversityModuleDao {
+    final private ModuleDao moduleStorage;
 
-    public PersonLocationStorage(LocationDao locationStorage) {
-        this.locationStorage = locationStorage;
+    public UniversityModuleStorage(ModuleDao moduleStorage) {
+        this.moduleStorage = moduleStorage;
     }
 
     @Override
     protected IDatabaseAccessObject<Module> getSecondaryStorage() {
-        return this.locationStorage;
+        return this.moduleStorage;
     }
 
     @Override
-    public CollectionModelResult<Module> readByCityName(long primaryId, String cityName, SearchParameter searchParameter) {
+    public CollectionModelResult<Module> readByModuleName(long primaryId, String moduleName, SearchParameter searchParameter) {
         return InMemoryPaging.page(
-                this.readAllLinkedByPredicate(primaryId, (p) -> cityName.isEmpty() || p.getCityName().equals(cityName)),
+                this.readAllLinkedByPredicate(primaryId, (p) -> moduleName.isEmpty() || p.getModuleName().equals(moduleName)),
                 searchParameter.getOffset(), searchParameter.getSize()
         );
     }
