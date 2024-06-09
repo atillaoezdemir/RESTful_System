@@ -5,8 +5,8 @@ public interface UniversityModuleRelTypes {
 	String GET_ALL_LINKED_MODULES = "getAllModulesOfPerson";
 	String GET_ALL_MODULES = "getAllLinkableModules";
 	String UPDATE_SINGLE_MODULE = "updateModuleOfPerson";
-	String CREATE_LINK_FROM_PERSON_TO_MODULE = "linkPersonToModule";
-	String DELETE_LINK_FROM_PERSON_TO_MODULE = "unlinkPersonToModule";
+	String CREATE_LINK_FROM_UNIVERSITY_TO_MODULE = "linkPersonToModule";
+	String DELETE_LINK_FROM_UNIVERSITY_TO_MODULE = "unlinkPersonToModule";
 	String GET_SINGLE_MODULE = "getModuleOfPerson";
 
 }

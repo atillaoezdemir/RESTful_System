@@ -40,7 +40,7 @@ private String uniName;
     }
 
     protected CollectionModelResult<University> doExecuteQuery(SearchParameter searchParameter) throws DatabaseException {
-        return DaoFactory.getInstance().getUniversityDao().readByUniName(
+        return DaoFactory.getInstance().getUniversityDao().readByName(
                 this.uniName,
                 searchParameter);
     }

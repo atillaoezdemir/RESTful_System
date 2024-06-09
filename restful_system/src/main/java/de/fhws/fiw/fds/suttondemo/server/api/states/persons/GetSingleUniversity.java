@@ -24,7 +24,7 @@ import de.fhws.fiw.fds.sutton.server.api.states.get.AbstractGetState;
 import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
 import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
 import de.fhws.fiw.fds.suttondemo.server.api.models.University;
-import de.fhws.fiw.fds.suttondemo.server.api.states.university_modules.PersonLocationRelTypes;
+import de.fhws.fiw.fds.suttondemo.server.api.states.university_modules.UniversityModuleRelTypes;
 import de.fhws.fiw.fds.suttondemo.server.api.states.university_modules.UniversityModuleUri;
 import de.fhws.fiw.fds.suttondemo.server.database.DaoFactory;
 import jakarta.ws.rs.core.Response;
@@ -59,7 +59,7 @@ public class GetSingleUniversity extends AbstractGetState<Response, University> 
                 this.requestedId );
         addLink( UniversityUri.REL_PATH_ID, UniversityRelTypes.DELETE_SINGLE_UNIVERSITY, getAcceptRequestHeader( ),
                 this.requestedId );
-        addLink( UniversityModuleUri.REL_PATH, UniversityModuleRelTypes.CREATE_LOCATION, getAcceptRequestHeader( ),
+        addLink( UniversityModuleUri.REL_PATH, UniversityModuleRelTypes.CREATE_MODULE, getAcceptRequestHeader( ),
                 this.requestedId );
     }
 }

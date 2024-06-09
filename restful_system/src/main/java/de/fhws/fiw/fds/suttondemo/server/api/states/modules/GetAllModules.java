@@ -18,10 +18,10 @@ public class GetAllModules extends AbstractGetCollectionState<Response, Module> 
 
     @Override
     protected void defineTransitionLinks() {
-        addLink(ModuleUri.REL_PATH, ModuleRelTypes.CREATE_MODULES, getAcceptRequestHeader());
+        addLink(ModuleUri.REL_PATH, ModuleRelTypes.CREATE_MODULE, getAcceptRequestHeader());
     }
 
-    public static class AllLocations<R> extends AbstractQuery<R, Module> {
+    public static class AllModules<R> extends AbstractQuery<R, Module> {
         @Override
         protected CollectionModelResult<Module> doExecuteQuery(SearchParameter searchParameter) throws DatabaseException {
             return DaoFactory.getInstance().getModuleDao().readAll();

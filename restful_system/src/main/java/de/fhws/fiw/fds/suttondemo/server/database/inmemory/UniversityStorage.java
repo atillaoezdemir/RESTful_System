@@ -25,4 +25,5 @@ public class UniversityStorage extends AbstractInMemoryStorage<University> imple
     private Predicate<University> byName(String uniName) {
         return p -> (uniName.isEmpty() || p.getUniName().equals(uniName));
     }
+
 }

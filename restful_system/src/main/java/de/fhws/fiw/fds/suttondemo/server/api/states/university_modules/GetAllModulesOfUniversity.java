@@ -23,7 +23,7 @@ public class GetAllModulesOfUniversity extends AbstractGetCollectionRelationStat
 
 
         addLink(UniversityModuleUri.REL_PATH_SHOW_ALL,
-                UniversityModuleRelTypes.GET_ALL_LOCATIONS,
+                UniversityModuleRelTypes.GET_ALL_MODULES,
                 getAcceptRequestHeader(),
                 this.primaryId);
 

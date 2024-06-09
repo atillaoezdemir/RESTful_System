@@ -37,18 +37,18 @@ public class DaoFactory {
 
     private final UniversityModuleDao universityModuleDao;
 
-    private DaoFactory(UniversityDao universityDao, ModuleDao moduleDao, UniversityModuleDao universityModuleDao) {
-        this.universityDao = universityDao;
-        this.moduleDao = moduleDao;
-        this.universityModuleDao = universityModuleDao;
+    private DaoFactory() {
+        this.universityDao = new UniversityStorage();
+        this.moduleDao = new ModuleStorage();
+        this.universityModuleDao = new UniversityModuleStorage(this.moduleDao);
     }
 
-    public static DaoFactory getINSTANCE() {
-        return INSTANCE;
+    public ModuleDao getModuleDao() {
+        return this.moduleDao;
     }
 
     public UniversityDao getUniversityDao() {
-        return universityDao;
+        return this.universityDao;
     }
 
     public UniversityModuleDao getUniversityModuleDao() {

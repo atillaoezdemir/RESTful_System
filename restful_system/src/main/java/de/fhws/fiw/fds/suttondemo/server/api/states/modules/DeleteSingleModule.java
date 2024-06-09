@@ -5,6 +5,8 @@ import de.fhws.fiw.fds.sutton.server.api.states.delete.AbstractDeleteState;
 import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
 import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
 import de.fhws.fiw.fds.suttondemo.server.api.models.Module;
+import de.fhws.fiw.fds.suttondemo.server.api.states.persons.UniversityRelTypes;
+import de.fhws.fiw.fds.suttondemo.server.api.states.persons.UniversityUri;
 import de.fhws.fiw.fds.suttondemo.server.database.DaoFactory;
 import jakarta.ws.rs.core.Response;
 
