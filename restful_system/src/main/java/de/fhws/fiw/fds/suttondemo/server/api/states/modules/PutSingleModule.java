@@ -39,7 +39,7 @@ public class PutSingleModule extends AbstractPutState<Response, Module> {
 
     @Override protected void defineTransitionLinks( )
     {
-        addLink( LocationUri.REL_PATH_ID, ModuleRelTypes.GET_SINGLE_MODULE, getAcceptRequestHeader( ),
+        addLink( ModuleUri.REL_PATH_ID, ModuleRelTypes.GET_SINGLE_MODULE, getAcceptRequestHeader( ),
                 this.modelToUpdate.getId( ) );
     }
 }

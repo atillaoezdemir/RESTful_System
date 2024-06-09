@@ -16,12 +16,12 @@
 
 package de.fhws.fiw.fds.suttondemo.server.api.states.persons;
 
-public interface PersonRelTypes {
+import de.fhws.fiw.fds.suttondemo.Start;
 
-    String CREATE_PERSON = "createPerson";
-    String GET_ALL_PERSONS = "getAllPersons";
-    String UPDATE_SINGLE_PERSON = "updatePerson";
-    String DELETE_SINGLE_PERSON = "deletePerson";
-    String GET_SINGLE_PERSON = "getPerson";
+public interface UniversityUri {
+
+    String PATH_ELEMENT = "universities";
+    String REL_PATH = Start.CONTEXT_PATH + "/api/" + PATH_ELEMENT;
+    String REL_PATH_ID = REL_PATH + "/{id}";
 
 }

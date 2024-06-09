@@ -6,6 +6,7 @@ import de.fhws.fiw.fds.sutton.server.api.states.delete.AbstractDeleteRelationSta
 import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
 import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
 import de.fhws.fiw.fds.suttondemo.server.api.models.Module;
+import de.fhws.fiw.fds.suttondemo.server.api.models.University;
 import de.fhws.fiw.fds.suttondemo.server.database.DaoFactory;
 import jakarta.ws.rs.core.Response;
 
@@ -19,7 +20,7 @@ public class DeleteSingleModuleOfUniversity extends AbstractDeleteRelationState<
 
     @Override
     protected SingleModelResult<Module> loadModel() {
-        return DaoFactory.getInstance().getUniversityLocationDao().readById(this.primaryId, this.modelIdToDelete);
+        return DaoFactory.getInstance().getUniversityModuleDao().readById(this.primaryId, this.modelIdToDelete);
     }
 
     @Override
@@ -30,7 +31,7 @@ public class DeleteSingleModuleOfUniversity extends AbstractDeleteRelationState<
     @Override
     protected void defineTransitionLinks() {
         addLink(UniversityModuleUri.REL_PATH,
-                PersonLocationRelTypes.GET_ALL_LINKED_LOCATIONS,
+                UniversityModuleRelTypes.GET_ALL_LINKED_MODULES,
                 getAcceptRequestHeader(),
                 this.primaryId);
     }

@@ -24,16 +24,16 @@ import de.fhws.fiw.fds.suttondemo.server.api.models.University;
 import de.fhws.fiw.fds.suttondemo.server.database.DaoFactory;
 import jakarta.ws.rs.core.Response;
 
-public class PostNewPerson extends AbstractPostState<Response, University> {
+public class PostNewUniversity extends AbstractPostState<Response, University> {
 
-    public PostNewPerson(ServiceContext serviceContext, University modelToStore) {
+    public PostNewUniversity(ServiceContext serviceContext, University modelToStore) {
         super(serviceContext, modelToStore);
         this.suttonResponse = new JerseyResponse<>();
     }
 
     @Override
     protected NoContentResult saveModel() {
-        return DaoFactory.getInstance().getPersonDao().create(this.modelToStore);
+        return DaoFactory.getInstance().getUniversityDao().create(this.modelToStore);
     }
 
     @Override

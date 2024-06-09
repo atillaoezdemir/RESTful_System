@@ -8,9 +8,9 @@ import de.fhws.fiw.fds.suttondemo.server.api.models.Module;
 import de.fhws.fiw.fds.suttondemo.server.database.DaoFactory;
 import jakarta.ws.rs.core.Response;
 
-public class PostNewLocationOfPerson extends AbstractPostRelationState<Response, Module> {
+public class PostNewModuleOfUniversity extends AbstractPostRelationState<Response, Module> {
 
-    public PostNewLocationOfPerson(ServiceContext serviceContext, long primaryId, Module modelToStore) {
+    public PostNewModuleOfUniversity(ServiceContext serviceContext, long primaryId, Module modelToStore) {
         super(serviceContext, primaryId, modelToStore);
         this.suttonResponse = new JerseyResponse<>();
     }
@@ -18,7 +18,7 @@ public class PostNewLocationOfPerson extends AbstractPostRelationState<Response,
 
     @Override protected NoContentResult saveModel( )
     {
-        return DaoFactory.getInstance( ).getPersonLocationDao( ).create( this.primaryId, this.modelToStore );
+        return DaoFactory.getInstance( ).getUniversityModuleDao( ).create( this.primaryId, this.modelToStore );
     }
 
     @Override protected void defineTransitionLinks( )

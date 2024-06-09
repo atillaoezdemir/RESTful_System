@@ -16,35 +16,22 @@
 
 package de.fhws.fiw.fds.suttondemo.server.api.states.persons;
 
+import de.fhws.fiw.fds.sutton.server.api.queries.AbstractQuery;
 import de.fhws.fiw.fds.sutton.server.api.serviceAdapters.responseAdapter.JerseyResponse;
 import de.fhws.fiw.fds.sutton.server.api.services.ServiceContext;
-import de.fhws.fiw.fds.sutton.server.api.states.delete.AbstractDeleteState;
-import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
-import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
+import de.fhws.fiw.fds.sutton.server.api.states.get.AbstractGetCollectionState;
 import de.fhws.fiw.fds.suttondemo.server.api.models.University;
-import de.fhws.fiw.fds.suttondemo.server.database.DaoFactory;
 import jakarta.ws.rs.core.Response;
 
-public class DeleteSinglePerson extends AbstractDeleteState<Response, University> {
+public class GetAllUniversities extends AbstractGetCollectionState<Response, University> {
 
-    public DeleteSinglePerson(ServiceContext serviceContext, long modelIdToDelete) {
-        super(serviceContext, modelIdToDelete);
+    public GetAllUniversities(ServiceContext serviceContext, AbstractQuery<Response, University> query) {
+        super(serviceContext, query);
         this.suttonResponse = new JerseyResponse<>();
     }
 
     @Override
-    protected SingleModelResult<University> loadModel() {
-        return DaoFactory.getInstance().getPersonDao().readById(this.modelIdToDelete);
-    }
-
-    @Override
-    protected NoContentResult deleteModel() {
-        return DaoFactory.getInstance().getPersonDao().delete(this.modelIdToDelete);
-    }
-
-    @Override
     protected void defineTransitionLinks() {
-
+        addLink(UniversityUri.REL_PATH, UniversityRelTypes.CREATE_PERSON, getAcceptRequestHeader());
     }
-
 }

@@ -7,9 +7,9 @@ import de.fhws.fiw.fds.sutton.server.api.states.get.AbstractGetCollectionRelatio
 import de.fhws.fiw.fds.suttondemo.server.api.models.Module;
 import jakarta.ws.rs.core.Response;
 
-public class GetAllModulesOfPerson extends AbstractGetCollectionRelationState<Response, Module> {
+public class GetAllModulesOfUniversity extends AbstractGetCollectionRelationState<Response, Module> {
 
-    public GetAllModulesOfPerson(ServiceContext serviceContext, long primaryId, AbstractRelationQuery<Response, Module> query) {
+    public GetAllModulesOfUniversity(ServiceContext serviceContext, long primaryId, AbstractRelationQuery<Response, Module> query) {
         super(serviceContext, primaryId, query);
         this.suttonResponse = new JerseyResponse<>();
     }
@@ -17,7 +17,7 @@ public class GetAllModulesOfPerson extends AbstractGetCollectionRelationState<Re
     @Override
     protected void defineTransitionLinks() {
         addLink(UniversityModuleUri.REL_PATH,
-                PersonLocationRelTypes.CREATE_LOCATION,
+                UniversityModuleRelTypes.CREATE_MODULE,
                 getAcceptRequestHeader(),
                 this.primaryId);
 

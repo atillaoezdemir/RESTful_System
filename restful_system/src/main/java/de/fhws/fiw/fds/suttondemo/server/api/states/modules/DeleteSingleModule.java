@@ -17,7 +17,7 @@ public class DeleteSingleModule extends AbstractDeleteState<Response, Module> {
 
     @Override protected SingleModelResult<Module> loadModel( )
     {
-        return DaoFactory.getInstance( ).getModulDao( ).readById( this.modelIdToDelete );
+        return DaoFactory.getInstance( ).getModuleDao( ).readById( this.modelIdToDelete );
     }
 
     @Override protected NoContentResult deleteModel( )

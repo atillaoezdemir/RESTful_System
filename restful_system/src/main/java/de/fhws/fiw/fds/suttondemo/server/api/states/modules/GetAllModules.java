@@ -18,7 +18,7 @@ public class GetAllModules extends AbstractGetCollectionState<Response, Module> 
 
     @Override
     protected void defineTransitionLinks() {
-        addLink(LocationUri.REL_PATH, ModuleRelTypes.CREATE_MODULES, getAcceptRequestHeader());
+        addLink(ModuleUri.REL_PATH, ModuleRelTypes.CREATE_MODULES, getAcceptRequestHeader());
     }
 
     public static class AllLocations<R> extends AbstractQuery<R, Module> {

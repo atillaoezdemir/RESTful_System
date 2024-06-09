@@ -11,9 +11,9 @@ import de.fhws.fiw.fds.suttondemo.server.api.models.Module;
 import de.fhws.fiw.fds.suttondemo.server.database.DaoFactory;
 import jakarta.ws.rs.core.Response;
 
-public class PutSingleLocationOfPerson extends AbstractPutRelationState<Response, Module> {
+public class PutSingleModuleOfUniversity extends AbstractPutRelationState<Response, Module> {
 
-    public PutSingleLocationOfPerson(ServiceContext serviceContext, long primaryId, long requestedId, Module modelToUpdate) {
+    public PutSingleModuleOfUniversity(ServiceContext serviceContext, long primaryId, long requestedId, Module modelToUpdate) {
         super(serviceContext, primaryId, requestedId, modelToUpdate);
         this.suttonResponse = new JerseyResponse<>();
     }
@@ -31,18 +31,18 @@ public class PutSingleLocationOfPerson extends AbstractPutRelationState<Response
 
     @Override
     protected SingleModelResult<Module> loadModel() {
-        return DaoFactory.getInstance().getLocationDao().readById(this.requestedId);
+        return DaoFactory.getInstance().getModuleDao().readById(this.requestedId);
     }
 
     @Override
     protected NoContentResult updateModel() {
-        return DaoFactory.getInstance().getPersonLocationDao().update(this.primaryId, this.modelToUpdate);
+        return DaoFactory.getInstance().getUniversityModuleDao().update(this.primaryId, this.modelToUpdate);
     }
 
     @Override
     protected void defineTransitionLinks() {
         addLink(UniversityModuleUri.REL_PATH_ID,
-                PersonLocationRelTypes.GET_SINGLE_LOCATION,
+                UniversityModuleRelTypes.GET_SINGLE_MODULE,
                 getAcceptRequestHeader(),
                 this.primaryId, this.requestedId);
     }
