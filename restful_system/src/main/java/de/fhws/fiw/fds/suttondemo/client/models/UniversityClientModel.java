@@ -36,6 +36,18 @@ public class UniversityClientModel extends AbstractClientModel {
     public UniversityClientModel() {
     }
 
+    public UniversityClientModel(String uniName, String country, String departmant, String departmantUrl, String contactPerson, int sendStudents, int acceptStudents, LocalDate firstDaySpring, LocalDate firstDayAutumn) {
+        this.uniName = uniName;
+        this.country = country;
+        this.departmant = departmant;
+        this.departmantUrl = departmantUrl;
+        this.contactPerson = contactPerson;
+        this.sendStudents = sendStudents;
+        this.acceptStudents = acceptStudents;
+        this.firstDaySpring = firstDaySpring;
+        this.firstDayAutumn = firstDayAutumn;
+    }
+
     public String getUniName() {
         return uniName;
     }
@@ -122,5 +134,21 @@ public class UniversityClientModel extends AbstractClientModel {
 
     public void setSelfLink(Link selfLink) {
         this.selfLink = selfLink;
+    }
+
+    @Override
+    public String toString() {
+        return "UniversityClientModel{" +
+                "uniName='" + uniName + '\'' +
+                ", country='" + country + '\'' +
+                ", departmant='" + departmant + '\'' +
+                ", departmantUrl='" + departmantUrl + '\'' +
+                ", contactPerson='" + contactPerson + '\'' +
+                ", sendStudents=" + sendStudents +
+                ", acceptStudents=" + acceptStudents +
+                ", firstDaySpring=" + firstDaySpring +
+                ", firstDayAutumn=" + firstDayAutumn +
+                ", id=" + id +
+                '}';
     }
 }

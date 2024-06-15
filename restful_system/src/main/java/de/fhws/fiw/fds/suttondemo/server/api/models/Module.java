@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 @JsonRootName("module")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@XmlRootElement(name = "location")
+@XmlRootElement(name = "module")
 public class Module extends AbstractModel {
 
     private String moduleName;
@@ -22,8 +22,8 @@ public class Module extends AbstractModel {
     private int creditPoints;
 
     @SecondarySelfLink(
-            primaryPathElement = "modules",
-            secondaryPathElement = "universities"
+            primaryPathElement = "universities",
+            secondaryPathElement = "modules"
     )
     private transient Link selfLinkOnSecond;
 
@@ -34,12 +34,10 @@ public class Module extends AbstractModel {
         // make JPA happy
     }
 
-    public Module(String moduleName, int semester, int creditPoints, Link selfLinkOnSecond, Link selfLink) {
+    public Module(String moduleName, int semester, int creditPoints) {
         this.moduleName = moduleName;
         this.semester = semester;
         this.creditPoints = creditPoints;
-        this.selfLinkOnSecond = selfLinkOnSecond;
-        this.selfLink = selfLink;
     }
 
     public String getModuleName() {

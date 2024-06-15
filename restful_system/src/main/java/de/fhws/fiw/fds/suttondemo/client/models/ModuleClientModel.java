@@ -33,21 +33,10 @@ public class ModuleClientModel extends AbstractClientModel {
     private int creditPoints;
 
     @JsonDeserialize(using = ClientLinkJsonConverter.class)
-    private Link selfLink;
+    private transient Link selfLinkOnSecond;
 
     @JsonDeserialize(using = ClientLinkJsonConverter.class)
-    private Link location;
-
-    public ModuleClientModel() {
-    }
-
-    public ModuleClientModel(String moduleName, int semester, int creditPoints, Link selfLink, Link location) {
-        this.moduleName = moduleName;
-        this.semester = semester;
-        this.creditPoints = creditPoints;
-        this.selfLink = selfLink;
-        this.location = location;
-    }
+    private transient Link selfLink;
 
     public String getModuleName() {
         return moduleName;
@@ -73,7 +62,14 @@ public class ModuleClientModel extends AbstractClientModel {
         this.creditPoints = creditPoints;
     }
 
-    @JsonIgnore
+    public Link getSelfLinkOnSecond() {
+        return selfLinkOnSecond;
+    }
+
+    public void setSelfLinkOnSecond(Link selfLinkOnSecond) {
+        this.selfLinkOnSecond = selfLinkOnSecond;
+    }
+
     public Link getSelfLink() {
         return selfLink;
     }
@@ -82,24 +78,4 @@ public class ModuleClientModel extends AbstractClientModel {
         this.selfLink = selfLink;
     }
 
-    @JsonIgnore
-    public Link getLocation() {
-        return location;
-    }
-
-    public void setLocation(Link location) {
-        this.location = location;
-    }
-
-    @Override
-    public String toString() {
-        return "ModuleClientModel{" +
-                "moduleName='" + moduleName + '\'' +
-                ", semester=" + semester +
-                ", creditPoints=" + creditPoints +
-                ", selfLink=" + selfLink +
-                ", location=" + location +
-                ", id=" + id +
-                '}';
-    }
 }

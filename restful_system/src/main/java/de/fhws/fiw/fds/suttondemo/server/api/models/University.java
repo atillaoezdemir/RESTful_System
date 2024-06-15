@@ -63,7 +63,7 @@ public class University extends AbstractModel {
     }
 
     public University(String uniName, String country, String departmant, String departmantUrl, String contactPerson,
-                      int sendStudents, int acceptStudents, LocalDate firstDaySpring, LocalDate firstDayAutumn, Link selfLink, Link module) {
+                      int sendStudents, int acceptStudents, LocalDate firstDaySpring, LocalDate firstDayAutumn) {
         this.uniName = uniName;
         this.country = country;
         this.departmant = departmant;
@@ -73,8 +73,6 @@ public class University extends AbstractModel {
         this.acceptStudents = acceptStudents;
         this.firstDaySpring = firstDaySpring;
         this.firstDayAutumn = firstDayAutumn;
-        this.selfLink = selfLink;
-        this.module = module;
     }
 
     public String getUniName() {
@@ -177,7 +175,6 @@ public class University extends AbstractModel {
                 ", acceptStudents=" + acceptStudents +
                 ", firstDaySpring=" + firstDaySpring +
                 ", firstDayAutumn=" + firstDayAutumn +
-                ", selfLink=" + selfLink +
                 ", module=" + module +
                 ", id=" + id +
                 '}';

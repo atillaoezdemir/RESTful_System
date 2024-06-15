@@ -127,7 +127,7 @@ public class UniversityJerseyService extends AbstractJerseyService {
     }
 
     @POST
-    @Path("{universityId: \\d+}/locations")
+    @Path("{universityId: \\d+}/modules")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response createNewModuleOfUniversity(@PathParam("universityId") final long universityId, final Module module) {
         try {
@@ -139,7 +139,7 @@ public class UniversityJerseyService extends AbstractJerseyService {
     }
 
     @PUT
-    @Path("{universityId: \\d+}/locations/{locationId: \\d+}")
+    @Path("{universityId: \\d+}/modules/{moduleId: \\d+}")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response updateNewModuleOfUniversity(@PathParam("universityId") final long universityId,
                                               @PathParam("moduleId") final long moduleId, final Module module) {
@@ -153,7 +153,7 @@ public class UniversityJerseyService extends AbstractJerseyService {
 
     @DELETE
     @Path("{universityId: \\d+}/modules/{moduleId: \\d+}")
-    public Response deleteLocationOfUniversity(@PathParam("universityId") final long universityId,
+    public Response deleteModuleOfUniversity(@PathParam("universityId") final long universityId,
                                            @PathParam("moduleId") final long moduleId) {
         try {
             return new DeleteSingleModuleOfUniversity( this.serviceContext, moduleId, universityId ).execute();

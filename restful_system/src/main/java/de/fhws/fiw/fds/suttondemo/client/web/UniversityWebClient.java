@@ -28,13 +28,13 @@ public class UniversityWebClient {
         return createResponse(this.client.sendGetCollectionRequest(url, ModuleClientModel.class));
     }
 
-    public UniversityWebResponse postNewUniversity(String url, ModuleClientModel person)
+    public UniversityWebResponse postNewUniversity(String url, ModuleClientModel university)
             throws IOException {
-        return createResponse(this.client.sendPostRequest(url, person));
+        return createResponse(this.client.sendPostRequest(url, university));
     }
 
-    public UniversityWebResponse putUniversity(String url, ModuleClientModel person) throws IOException {
-        return createResponse(this.client.sendPutRequest(url, person));
+    public UniversityWebResponse putUniversity(String url, ModuleClientModel university) throws IOException {
+        return createResponse(this.client.sendPutRequest(url, university));
     }
 
     public UniversityWebResponse deleteUniversity(String url) throws IOException {
