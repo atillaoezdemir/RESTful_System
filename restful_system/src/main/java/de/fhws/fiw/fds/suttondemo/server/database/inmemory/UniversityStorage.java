@@ -11,9 +11,9 @@ import java.util.function.Predicate;
 
 public class UniversityStorage extends AbstractInMemoryStorage<University> implements UniversityDao {
     @Override
-    public CollectionModelResult<University> readByName(String uniName, SearchParameter searchParameter) {
+    public CollectionModelResult<University> readByNameAndCountry(String name, String country, SearchParameter searchParameter) {
         return InMemoryPaging.page(this.readAllByPredicate(
-                byName(uniName),
+                byNameAndCountry(name, country),
                 searchParameter
         ), searchParameter.getOffset(), searchParameter.getSize());
     }
@@ -22,8 +22,8 @@ public class UniversityStorage extends AbstractInMemoryStorage<University> imple
         this.storage.clear();
     }
 
-    private Predicate<University> byName(String uniName) {
-        return p -> (uniName.isEmpty() || p.getUniName().equals(uniName));
+    private Predicate<University> byNameAndCountry(String name, String country) {
+        return p -> (name.isEmpty() || p.getUniName().equals(name) ) && ( country.isEmpty() || p.getCountry().equals(country));
     }
 
 }

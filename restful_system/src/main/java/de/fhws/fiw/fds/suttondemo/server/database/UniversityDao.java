@@ -21,7 +21,7 @@ import de.fhws.fiw.fds.suttondemo.server.api.models.University;
 
 public interface UniversityDao extends IDatabaseAccessObject<University> {
 
-    CollectionModelResult<University> readByName(String uniName, SearchParameter searchParameter);
+    CollectionModelResult<University> readByNameAndCountry(String name, String country, SearchParameter searchParameter);
 
     void resetDatabase();
 }

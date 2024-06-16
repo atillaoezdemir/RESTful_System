@@ -19,7 +19,7 @@ import de.fhws.fiw.fds.sutton.server.api.services.AbstractJerseyService;
 import de.fhws.fiw.fds.suttondemo.server.api.models.Module;
 import de.fhws.fiw.fds.suttondemo.server.api.models.University;
 import de.fhws.fiw.fds.suttondemo.server.api.queries.QueryByModuleName;
-import de.fhws.fiw.fds.suttondemo.server.api.queries.QueryByUniName;
+import de.fhws.fiw.fds.suttondemo.server.api.queries.QueryByNameAndCountry;
 import de.fhws.fiw.fds.suttondemo.server.api.states.persons.*;
 import de.fhws.fiw.fds.suttondemo.server.api.states.university_modules.*;
 import jakarta.ws.rs.*;
@@ -37,12 +37,13 @@ public class UniversityJerseyService extends AbstractJerseyService {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getAllUniversities(
             @DefaultValue("") @QueryParam("uniname") final String uniName,
+            @DefaultValue("") @QueryParam("country") final String country,
             @DefaultValue("0") @QueryParam("offset") int offset,
             @DefaultValue("20") @QueryParam("size") int size) {
         try {
             return new GetAllUniversities(
                     this.serviceContext,
-                    new QueryByUniName<>(uniName, offset, size)
+                    new QueryByNameAndCountry<>(uniName, country, offset, size)
             ).execute();
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(e.getExceptionMessage(), e.getStatus().getCode());
