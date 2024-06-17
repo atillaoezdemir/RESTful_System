@@ -5,18 +5,13 @@ import de.fhws.fiw.fds.suttondemo.server.api.models.University;
 import java.util.Comparator;
 public class UniversityComparator {
 	public static Comparator<University> by(final String orderAttribute) {
-		switch (orderAttribute) {
-			case "+name":
-				return byNames();
-			case "-name":
-				return byNames().reversed();
-			case "+country":
-				return byCountry();
-			case "-country":
-				return byCountry().reversed();
-			default:
-				return byId();
-		}
+        return switch (orderAttribute) {
+            case "+name" -> byNames();
+            case "-name" -> byNames().reversed();
+            case "+country" -> byCountry();
+            case "-country" -> byCountry().reversed();
+            default -> byId();
+        };
 	}
 
 	public static Comparator<University> byId() {
@@ -24,10 +19,11 @@ public class UniversityComparator {
 	}
 
 	public static Comparator<University> byNames() {
-		return Comparator.comparing(University::getUniName).thenComparing(University::getDepartmant);
+		return Comparator.comparing((University u) -> u.getUniName().toLowerCase()).thenComparing(University::getDepartmant);
 	}
 
 	public static Comparator<University> byCountry() {
-		return Comparator.comparing(University::getCountry);
+		return Comparator.comparing((University u) -> u.getCountry().toLowerCase());
 	}
 }
+

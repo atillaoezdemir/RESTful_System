@@ -70,7 +70,7 @@ public abstract class AbstractInMemoryStorage<T extends AbstractModel> {
 		return returnValue;
 	}
 
-	private Collection<T> filterBy(final Predicate<T> predicate) {
+	protected Collection<T> filterBy(final Predicate<T> predicate) {
 		return this.storage.values().stream().filter(predicate).collect(Collectors.toList());
 	}
 
@@ -102,7 +102,7 @@ public abstract class AbstractInMemoryStorage<T extends AbstractModel> {
 		return clone;
 	}
 
-	private Predicate<T> all() {
+	protected Predicate<T> all() {
 		return p -> true;
 	}
 

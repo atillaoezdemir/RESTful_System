@@ -26,10 +26,14 @@ public class QueryByNameAndCountry<R> extends AbstractQuery<R, University> {
 
 private String name;
 private String country;
+private String search;
+private String order;
 
-    public QueryByNameAndCountry(String name, String country, int offset, int size) {
+    public QueryByNameAndCountry(String search, String order, String name, String country, int offset, int size) {
         this.name = name;
         this.country = country;
+        this.search = search;
+        this.order = order;
         this.pagingBehavior = new PagingBehaviorUsingOffsetSize<>(offset, size);
     }
 
@@ -49,8 +53,26 @@ private String country;
         this.country = country;
     }
 
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
+    }
+
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
+    }
+
     protected CollectionModelResult<University> doExecuteQuery(SearchParameter searchParameter) throws DatabaseException {
-        return DaoFactory.getInstance().getUniversityDao().readByNameAndCountry(
+        return DaoFactory.getInstance().getUniversityDao().readByAll(
+                this.search,
+                this.order,
                 this.name,
                 this.country,
                 searchParameter);

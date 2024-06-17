@@ -15,26 +15,15 @@ package de.fhws.fiw.fds.suttondemo.server.api.services;/*
 
 import de.fhws.fiw.fds.sutton.server.api.serviceAdapters.Exceptions.SuttonWebAppException;
 import de.fhws.fiw.fds.sutton.server.api.services.AbstractJerseyService;
-import de.fhws.fiw.fds.sutton.server.database.SearchParameter;
-import de.fhws.fiw.fds.sutton.server.database.inmemory.AbstractInMemoryStorage;
-import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
 import de.fhws.fiw.fds.suttondemo.server.api.models.Module;
 import de.fhws.fiw.fds.suttondemo.server.api.models.University;
 import de.fhws.fiw.fds.suttondemo.server.api.queries.QueryByModuleName;
 import de.fhws.fiw.fds.suttondemo.server.api.queries.QueryByNameAndCountry;
 import de.fhws.fiw.fds.suttondemo.server.api.states.universities.*;
 import de.fhws.fiw.fds.suttondemo.server.api.states.university_modules.*;
-import de.fhws.fiw.fds.suttondemo.server.database.inmemory.UniversityStorage;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.UriInfo;
-
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.stream.Collectors;
-
 
 @Path("universities")
 public class UniversityJerseyService extends AbstractJerseyService {
@@ -55,7 +44,7 @@ public class UniversityJerseyService extends AbstractJerseyService {
         try {
             return new GetAllUniversities(
                     this.serviceContext,
-                    new QueryByNameAndCountry<>(uniName, country, offset, size)
+                    new QueryByNameAndCountry<>(search, order, uniName, country, offset, size)
             ).execute();
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(e.getExceptionMessage(), e.getStatus().getCode());
