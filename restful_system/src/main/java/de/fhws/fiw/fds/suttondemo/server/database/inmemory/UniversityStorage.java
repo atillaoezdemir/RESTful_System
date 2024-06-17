@@ -7,7 +7,10 @@ import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
 import de.fhws.fiw.fds.suttondemo.server.api.models.University;
 import de.fhws.fiw.fds.suttondemo.server.database.UniversityDao;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class UniversityStorage extends AbstractInMemoryStorage<University> implements UniversityDao {
     @Override
@@ -27,3 +30,4 @@ public class UniversityStorage extends AbstractInMemoryStorage<University> imple
     }
 
 }
+

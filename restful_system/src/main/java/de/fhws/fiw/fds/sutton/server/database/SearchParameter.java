@@ -37,6 +37,16 @@ public class SearchParameter {
      */
     private String orderByAttribute = "";
 
+    // No-argument constructor
+    public SearchParameter() {
+    }
+
+    public SearchParameter(int offset, int size, String orderByAttribute) {
+        this.offset = offset;
+        this.size = size;
+        this.orderByAttribute = orderByAttribute;
+    }
+
     public int getOffset() {
         return this.offset;
     }

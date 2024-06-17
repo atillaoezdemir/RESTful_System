@@ -1,4 +1,4 @@
-/*
+package de.fhws.fiw.fds.suttondemo.server.api.services;/*
  * Copyright 2021 University of Applied Sciences Würzburg-Schweinfurt, Germany
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -12,23 +12,32 @@
  * the License.
  */
 
-package de.fhws.fiw.fds.suttondemo.server.api.services;
 
 import de.fhws.fiw.fds.sutton.server.api.serviceAdapters.Exceptions.SuttonWebAppException;
 import de.fhws.fiw.fds.sutton.server.api.services.AbstractJerseyService;
+import de.fhws.fiw.fds.sutton.server.database.SearchParameter;
+import de.fhws.fiw.fds.sutton.server.database.inmemory.AbstractInMemoryStorage;
+import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
 import de.fhws.fiw.fds.suttondemo.server.api.models.Module;
 import de.fhws.fiw.fds.suttondemo.server.api.models.University;
 import de.fhws.fiw.fds.suttondemo.server.api.queries.QueryByModuleName;
 import de.fhws.fiw.fds.suttondemo.server.api.queries.QueryByNameAndCountry;
-import de.fhws.fiw.fds.suttondemo.server.api.states.persons.*;
+import de.fhws.fiw.fds.suttondemo.server.api.states.universities.*;
 import de.fhws.fiw.fds.suttondemo.server.api.states.university_modules.*;
+import de.fhws.fiw.fds.suttondemo.server.database.inmemory.UniversityStorage;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriInfo;
+
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.stream.Collectors;
+
 
 @Path("universities")
 public class UniversityJerseyService extends AbstractJerseyService {
-
     public UniversityJerseyService() {
         super();
     }
@@ -36,10 +45,13 @@ public class UniversityJerseyService extends AbstractJerseyService {
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getAllUniversities(
+            @DefaultValue("") @QueryParam("search") final String search,
+            @DefaultValue("+name") @QueryParam("order") final String order,
             @DefaultValue("") @QueryParam("uniname") final String uniName,
             @DefaultValue("") @QueryParam("country") final String country,
             @DefaultValue("0") @QueryParam("offset") int offset,
             @DefaultValue("20") @QueryParam("size") int size) {
+
         try {
             return new GetAllUniversities(
                     this.serviceContext,
@@ -49,6 +61,7 @@ public class UniversityJerseyService extends AbstractJerseyService {
             throw new WebApplicationException(e.getExceptionMessage(), e.getStatus().getCode());
         }
     }
+    // Rest of the methods}
 
     @GET
     @Path("{id: \\d+}")

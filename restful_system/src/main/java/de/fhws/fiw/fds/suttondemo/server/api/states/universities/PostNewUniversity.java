@@ -14,24 +14,30 @@
  *  limitations under the License.
  */
 
-package de.fhws.fiw.fds.suttondemo.server.api.states.persons;
+package de.fhws.fiw.fds.suttondemo.server.api.states.universities;
 
-import de.fhws.fiw.fds.sutton.server.api.queries.AbstractQuery;
 import de.fhws.fiw.fds.sutton.server.api.serviceAdapters.responseAdapter.JerseyResponse;
 import de.fhws.fiw.fds.sutton.server.api.services.ServiceContext;
-import de.fhws.fiw.fds.sutton.server.api.states.get.AbstractGetCollectionState;
+import de.fhws.fiw.fds.sutton.server.api.states.post.AbstractPostState;
+import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
 import de.fhws.fiw.fds.suttondemo.server.api.models.University;
+import de.fhws.fiw.fds.suttondemo.server.database.DaoFactory;
 import jakarta.ws.rs.core.Response;
 
-public class GetAllUniversities extends AbstractGetCollectionState<Response, University> {
+public class PostNewUniversity extends AbstractPostState<Response, University> {
 
-    public GetAllUniversities(ServiceContext serviceContext, AbstractQuery<Response, University> query) {
-        super(serviceContext, query);
+    public PostNewUniversity(ServiceContext serviceContext, University modelToStore) {
+        super(serviceContext, modelToStore);
         this.suttonResponse = new JerseyResponse<>();
     }
 
     @Override
+    protected NoContentResult saveModel() {
+        return DaoFactory.getInstance().getUniversityDao().create(this.modelToStore);
+    }
+
+    @Override
     protected void defineTransitionLinks() {
-        addLink(UniversityUri.REL_PATH, UniversityRelTypes.CREATE_UNIVERSITY, getAcceptRequestHeader());
+
     }
 }

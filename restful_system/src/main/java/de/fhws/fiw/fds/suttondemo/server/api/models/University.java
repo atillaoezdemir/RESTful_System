@@ -75,6 +75,10 @@ public class University extends AbstractModel {
         this.firstDayAutumn = firstDayAutumn;
     }
 
+    public boolean matches(String search) {
+        return uniName.contains(search) || country.contains(search);
+    }
+
     public String getUniName() {
         return uniName;
     }

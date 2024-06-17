@@ -14,14 +14,14 @@
  *  limitations under the License.
  */
 
-package de.fhws.fiw.fds.suttondemo.server.api.states.persons;
+package de.fhws.fiw.fds.suttondemo.server.api.states.universities;
 
-import de.fhws.fiw.fds.suttondemo.Start;
+public interface UniversityRelTypes {
 
-public interface UniversityUri {
-
-    String PATH_ELEMENT = "universities";
-    String REL_PATH = Start.CONTEXT_PATH + "/api/" + PATH_ELEMENT;
-    String REL_PATH_ID = REL_PATH + "/{id}";
+    String CREATE_UNIVERSITY = "createUniversity";
+    String GET_ALL_UNIVERSITIES = "getAllUniversities";
+    String UPDATE_SINGLE_UNIVERSITY = "updateUniversity";
+    String DELETE_SINGLE_UNIVERSITY = "deleteUniversity";
+    String GET_SINGLE_UNIVERSITY = "getUniversity";
 
 }
