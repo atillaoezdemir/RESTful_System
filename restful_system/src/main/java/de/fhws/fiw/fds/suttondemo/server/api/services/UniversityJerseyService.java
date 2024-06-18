@@ -35,8 +35,8 @@ public class UniversityJerseyService extends AbstractJerseyService {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getAllUniversities(
             @DefaultValue("") @QueryParam("search") final String search,
-            @DefaultValue("+name") @QueryParam("order") final String order,
-            @DefaultValue("") @QueryParam("uniname") final String uniName,
+            @DefaultValue("asc_name") @QueryParam("order") final String order,
+            @DefaultValue("") @QueryParam("name") final String name,
             @DefaultValue("") @QueryParam("country") final String country,
             @DefaultValue("0") @QueryParam("offset") int offset,
             @DefaultValue("20") @QueryParam("size") int size) {
@@ -44,7 +44,7 @@ public class UniversityJerseyService extends AbstractJerseyService {
         try {
             return new GetAllUniversities(
                     this.serviceContext,
-                    new QueryByNameAndCountry<>(search, order, uniName, country, offset, size)
+                    new QueryByNameAndCountry<>(search, order, name, country, offset, size)
             ).execute();
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(e.getExceptionMessage(), e.getStatus().getCode());

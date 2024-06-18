@@ -15,7 +15,7 @@ import java.util.function.Predicate;
 public class UniversityStorage extends AbstractInMemoryStorage<University> implements UniversityDao {
 
     @Override
-    public CollectionModelResult<University> readByAll(String search, String order, String uniName, String country, SearchParameter searchParameter) {
+    public CollectionModelResult<University> readByAll(String search, String order, String name, String country, SearchParameter searchParameter) {
         // Combine predicates for search, country, and name
         Predicate<University> predicate = all();
 
@@ -25,8 +25,8 @@ public class UniversityStorage extends AbstractInMemoryStorage<University> imple
         if (country != null && !country.isEmpty())
             predicate = predicate.and(byCountry(country));
 
-        if (uniName != null && !uniName.isEmpty())
-            predicate = predicate.and(byName(uniName));
+        if (name != null && !name.isEmpty())
+            predicate = predicate.and(byName(name));
 
         // Filter universities based on combined predicate
         List<University> filteredUniversities = new ArrayList<>(this.filterBy(predicate));
@@ -61,3 +61,4 @@ public class UniversityStorage extends AbstractInMemoryStorage<University> imple
         this.storage.clear();
     }
 }
+

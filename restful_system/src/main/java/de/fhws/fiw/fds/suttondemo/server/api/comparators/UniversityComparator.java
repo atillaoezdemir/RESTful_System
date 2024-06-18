@@ -4,14 +4,15 @@ import de.fhws.fiw.fds.suttondemo.server.api.models.University;
 
 import java.util.Comparator;
 public class UniversityComparator {
-	public static Comparator<University> by(final String orderAttribute) {
-        return switch (orderAttribute) {
-            case "+name" -> byNames();
-            case "-name" -> byNames().reversed();
-            case "+country" -> byCountry();
-            case "-country" -> byCountry().reversed();
-            default -> byId();
-        };
+	public static Comparator<University> by(final String order) {
+
+		return switch (order) {
+			case "asc_name" -> byNames();
+			case "desc_name" -> byNames().reversed();
+			case "asc_country" -> byCountry();
+			case "desc_country" -> byCountry().reversed();
+			default -> byId();
+		};
 	}
 
 	public static Comparator<University> byId() {
