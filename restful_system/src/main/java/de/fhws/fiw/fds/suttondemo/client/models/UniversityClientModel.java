@@ -4,9 +4,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import de.fhws.fiw.fds.sutton.client.converters.ClientLinkJsonConverter;
 import de.fhws.fiw.fds.sutton.client.model.AbstractClientModel;
 import de.fhws.fiw.fds.sutton.client.utils.Link;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.time.LocalDate;
 
+@XmlRootElement
 public class UniversityClientModel extends AbstractClientModel {
     private String uniName;
 

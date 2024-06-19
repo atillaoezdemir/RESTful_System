@@ -14,16 +14,11 @@
 
 package de.fhws.fiw.fds.suttondemo.client.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import de.fhws.fiw.fds.sutton.client.converters.ClientLinkJsonConverter;
 import de.fhws.fiw.fds.sutton.client.model.AbstractClientModel;
 import de.fhws.fiw.fds.sutton.client.utils.Link;
-import jakarta.xml.bind.annotation.XmlRootElement;
 
-import java.time.LocalDate;
-
-@XmlRootElement
 public class ModuleClientModel extends AbstractClientModel {
 
     private String moduleName;

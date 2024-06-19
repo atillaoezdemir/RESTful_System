@@ -17,10 +17,12 @@ public class DemoRestClient extends AbstractRestClient {
     private static final String CREATE_UNIVERSITY = "createUniversity";
 
 
-    private List<ModuleClientModel> currentUniversityData;
+    private List<UniversityClientModel> currentUniversityData;
+
     private int cursorUniversityData = 0;
 
-    private List<UniversityClientModel> currentModuleData;
+    private List<ModuleClientModel> currentModuleData;
+
     private int cursorModuleData = 0;
 
     final private UniversityWebClient client;
