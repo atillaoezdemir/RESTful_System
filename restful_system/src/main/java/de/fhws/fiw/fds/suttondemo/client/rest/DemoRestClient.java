@@ -77,7 +77,7 @@ public class DemoRestClient extends AbstractRestClient {
         return !this.currentUniversityData.isEmpty() || isLocationHeaderAvailable();
     }
 
-    public List<ModuleClientModel> universityData() {
+    public List<UniversityClientModel> universityData() {
         if (this.currentUniversityData.isEmpty()) {
             throw new IllegalStateException();
         }
