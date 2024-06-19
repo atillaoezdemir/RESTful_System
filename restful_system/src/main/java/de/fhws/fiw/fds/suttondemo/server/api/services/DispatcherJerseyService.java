@@ -24,7 +24,6 @@ public class DispatcherJerseyService extends AbstractJerseyService {
         }
     }
 
-
     @GET
     @Path("resetdatabase")
     @Produces({MediaType.APPLICATION_JSON})

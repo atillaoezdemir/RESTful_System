@@ -36,6 +36,8 @@ public class ModuleJerseyService extends AbstractJerseyService {
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response createSingleModule(final Module moduleModel) {
+        validateSemester(moduleModel.getSemester());
+
         try {
             return new PostNewModule( this.serviceContext, moduleModel).execute( );
         } catch (SuttonWebAppException e) {
@@ -48,6 +50,8 @@ public class ModuleJerseyService extends AbstractJerseyService {
     @Path("{id: \\d+}")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response updateSingleModule(@PathParam("id") final long id, final Module moduleModel) {
+        validateSemester(moduleModel.getSemester());
+
         try {
             return new PutSingleModule( this.serviceContext, id, moduleModel).execute( );
         } catch (SuttonWebAppException e) {
@@ -65,6 +69,12 @@ public class ModuleJerseyService extends AbstractJerseyService {
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(Response.status(e.getStatus().getCode())
                     .entity(e.getExceptionMessage()).build());
+        }
+    }
+
+    private void validateSemester(int semester) {
+        if (semester != 1 && semester != 2) {
+            throw new WebApplicationException("Semester must be 1 or 2.", Response.Status.BAD_REQUEST);
         }
     }
 }

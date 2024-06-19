@@ -12,7 +12,6 @@ package de.fhws.fiw.fds.suttondemo.server.api.services;/*
  * the License.
  */
 
-
 import de.fhws.fiw.fds.sutton.server.api.serviceAdapters.Exceptions.SuttonWebAppException;
 import de.fhws.fiw.fds.sutton.server.api.services.AbstractJerseyService;
 import de.fhws.fiw.fds.suttondemo.server.api.models.Module;
@@ -25,6 +24,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.util.List;
+
 @Path("universities")
 public class UniversityJerseyService extends AbstractJerseyService {
     public UniversityJerseyService() {
@@ -35,16 +36,28 @@ public class UniversityJerseyService extends AbstractJerseyService {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getAllUniversities(
             @DefaultValue("") @QueryParam("search") final String search,
-            @DefaultValue("asc_name") @QueryParam("order") final String order,
+            @DefaultValue("") @QueryParam("order") final List<String> orderList,
             @DefaultValue("") @QueryParam("name") final String name,
             @DefaultValue("") @QueryParam("country") final String country,
             @DefaultValue("0") @QueryParam("offset") int offset,
             @DefaultValue("20") @QueryParam("size") int size) {
 
+        if (orderList.size() > 1) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Only one 'order' parameter is allowed.")
+                    .build();
+        }
+
+        String order = orderList.isEmpty() ? "asc_name" : orderList.get(0);
+
         try {
             return new GetAllUniversities(
                     this.serviceContext,
-                    new QueryByNameAndCountry<>(search, order, name, country, offset, size)
+                    new QueryByNameAndCountry<>(search, order, name, country, offset, size),
+                    search,
+                    country,
+                    name,
+                    order
             ).execute();
         } catch (SuttonWebAppException e) {
             throw new WebApplicationException(e.getExceptionMessage(), e.getStatus().getCode());
@@ -120,7 +133,7 @@ public class UniversityJerseyService extends AbstractJerseyService {
     @Path("{universityId: \\d+}/modules/{moduleId: \\d+}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getModuleByIdOfUniversity(@PathParam("universityId") final long universityId,
-                                            @PathParam("moduleId") final long moduleId) {
+                                              @PathParam("moduleId") final long moduleId) {
         try {
             return new GetSingleModuleOfUniversity( this.serviceContext, universityId, moduleId ).execute();
         } catch (SuttonWebAppException e) {
@@ -145,7 +158,7 @@ public class UniversityJerseyService extends AbstractJerseyService {
     @Path("{universityId: \\d+}/modules/{moduleId: \\d+}")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response updateNewModuleOfUniversity(@PathParam("universityId") final long universityId,
-                                              @PathParam("moduleId") final long moduleId, final Module module) {
+                                                @PathParam("moduleId") final long moduleId, final Module module) {
         try {
             return new PutSingleModuleOfUniversity( this.serviceContext, universityId, moduleId, module).execute();
         } catch (SuttonWebAppException e) {
@@ -157,7 +170,7 @@ public class UniversityJerseyService extends AbstractJerseyService {
     @DELETE
     @Path("{universityId: \\d+}/modules/{moduleId: \\d+}")
     public Response deleteModuleOfUniversity(@PathParam("universityId") final long universityId,
-                                           @PathParam("moduleId") final long moduleId) {
+                                             @PathParam("moduleId") final long moduleId) {
         try {
             return new DeleteSingleModuleOfUniversity( this.serviceContext, moduleId, universityId ).execute();
         } catch (SuttonWebAppException e) {
@@ -165,5 +178,4 @@ public class UniversityJerseyService extends AbstractJerseyService {
                     .entity(e.getExceptionMessage()).build());
         }
     }
-
 }

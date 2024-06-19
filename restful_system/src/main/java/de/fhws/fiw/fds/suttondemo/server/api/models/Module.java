@@ -8,8 +8,6 @@ import de.fhws.fiw.fds.sutton.server.api.hyperlinks.annotations.SelfLink;
 import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
-import java.time.LocalDate;
-
 @JsonRootName("module")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @XmlRootElement(name = "module")

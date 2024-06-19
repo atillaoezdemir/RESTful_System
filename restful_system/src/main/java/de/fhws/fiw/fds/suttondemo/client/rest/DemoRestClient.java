@@ -47,7 +47,7 @@ public class DemoRestClient extends AbstractRestClient {
         return isLinkAvailable(CREATE_UNIVERSITY);
     }
 
-    public void createUniversity(ModuleClientModel university) throws IOException {
+    public void createUniversity(UniversityClientModel university) throws IOException {
         if (isCreateUniversityAllowed()) {
             processResponse(this.client.postNewUniversity(getUrl(CREATE_UNIVERSITY), university), (response) -> {
                 this.currentUniversityData = Collections.EMPTY_LIST;
