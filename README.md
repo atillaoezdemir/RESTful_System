@@ -1,7 +1,7 @@
 # Sutton Framework and Demo Application
 
-This repository belongs to the module "Foundations of Distributed Systems" at the Technical University of
-Applied Sciences Würzburg-Schweinfurt. It contains the Sutton Framework and a demo application that uses the framework.
+This repository contains the Sutton Framework from the "Foundations of Distributed Systems" module at the Technical University
+of Applied Sciences Würzburg-Schweinfurt and a demo application I created using the framework.
 
 ## Required libraries and their versions
 
@@ -72,7 +72,7 @@ create an image. Finally, execute `$> docker run -p 8080:8080 --rm <IMAGE_ID>` t
 
 ### For integration testing
 
-Call `mvn verify` to start the integration tests. This will create a Docker image and start a container for the demo application.  
-Then the integration tests will be executed. Finally, the container will be stopped and removed. All integration tests must
-be located in the `src/test/java` directory and must end with `IT`. See class `TestDemoAppIT` for an example.
+Go to restful_system directory and call `mvn verify` to start the integration tests. This will create a Docker image and start a container
+for the demo application. Then the integration tests will be executed. Finally, the container will be stopped and removed. All integration 
+tests must be located in the `src/test/java` directory and must end with `IT`. See class `TestDemoAppIT` for an example.
 
