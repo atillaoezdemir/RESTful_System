@@ -61,5 +61,7 @@ public class GetSingleUniversity extends AbstractGetState<Response, University> 
                 this.requestedId );
         addLink( UniversityModuleUri.REL_PATH, UniversityModuleRelTypes.CREATE_MODULE, getAcceptRequestHeader( ),
                 this.requestedId );
+        addLink( UniversityModuleUri.REL_PATH, UniversityModuleRelTypes.GET_ALL_LINKED_MODULES, getAcceptRequestHeader( ),
+                this.requestedId );
     }
 }

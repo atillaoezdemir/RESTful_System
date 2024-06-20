@@ -44,7 +44,7 @@ public class DeleteSingleUniversity extends AbstractDeleteState<Response, Univer
 
     @Override
     protected void defineTransitionLinks() {
-
+        addLink(UniversityUri.REL_PATH, UniversityRelTypes.GET_ALL_UNIVERSITIES, getAcceptRequestHeader());
     }
 
 }

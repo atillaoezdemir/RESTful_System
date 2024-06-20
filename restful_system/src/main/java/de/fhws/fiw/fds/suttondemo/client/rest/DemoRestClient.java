@@ -1,9 +1,7 @@
 package de.fhws.fiw.fds.suttondemo.client.rest;
 
-
 import de.fhws.fiw.fds.sutton.client.rest2.AbstractRestClient;
 import de.fhws.fiw.fds.suttondemo.client.models.UniversityClientModel;
-import de.fhws.fiw.fds.suttondemo.client.models.ModuleClientModel;
 import de.fhws.fiw.fds.suttondemo.client.web.UniversityWebClient;
 
 import java.io.IOException;
@@ -15,13 +13,14 @@ public class DemoRestClient extends AbstractRestClient {
     private static final String BASE_URL = "http://localhost:8080/demo/api";
     private static final String GET_ALL_UNIVERSITIES = "getAllUniversities";
     private static final String CREATE_UNIVERSITY = "createUniversity";
-
+    private static final String UPDATE_SINGLE_UNIVERSITY = "updateUniversity";
+    private static final String DELETE_SINGLE_UNIVERSITY = "deleteUniversity";
+    private static final String GET_ALL_MODULES = "getAllModules";
+    private static final String CREATE_MODULE = "createModuleOfUniversity";
 
     private List<UniversityClientModel> currentUniversityData;
 
     private int cursorUniversityData = 0;
-
-    private List<ModuleClientModel> currentModuleData;
 
     private int cursorModuleData = 0;
 
@@ -115,6 +114,30 @@ public class DemoRestClient extends AbstractRestClient {
             this.cursorUniversityData = 0;
         });
     }
+
+    public boolean isUpdateUniversityAllowed() {
+        return isLinkAvailable(UPDATE_SINGLE_UNIVERSITY);
+    }
+
+    public boolean isDeleteUniversityAllowed() {
+        return isLinkAvailable(DELETE_SINGLE_UNIVERSITY);
+    }
+
+    public void deleteUniversity(UniversityClientModel university) throws IOException {
+        if (isDeleteUniversityAllowed()) {
+            processResponse(this.client.deleteUniversity(university.getSelfLink().getUrl()), (response) -> {
+                this.currentUniversityData = Collections.emptyList();
+                this.cursorUniversityData = 0;
+            });
+        } else {
+            throw new IllegalStateException("Delete operation is not allowed.");
+        }
+    }
+
+    public boolean isCreateModuleAllowed() {
+        return isLinkAvailable(CREATE_MODULE);
+    }
+
 
     /*
      *  The rest of the class is omitted for brevity

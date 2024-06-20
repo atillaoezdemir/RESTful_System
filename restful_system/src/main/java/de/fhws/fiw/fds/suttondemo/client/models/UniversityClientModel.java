@@ -5,14 +5,17 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import de.fhws.fiw.fds.sutton.client.converters.ClientLinkJsonConverter;
 import de.fhws.fiw.fds.sutton.client.model.AbstractClientModel;
 import de.fhws.fiw.fds.sutton.client.utils.Link;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.time.LocalDate;
 
 @XmlRootElement
 public class UniversityClientModel extends AbstractClientModel {
+    @NotBlank(message = "University name is mandatory")
     private String uniName;
 
+    @NotBlank(message = "Country is mandatory")
     private String country;
 
     private String departmant;
@@ -21,9 +24,9 @@ public class UniversityClientModel extends AbstractClientModel {
 
     private String contactPerson;
 
-    private int sendStudents;
+    private int sendStudents = 0;
 
-    private int acceptStudents;
+    private int acceptStudents = 0;
 
     private LocalDate firstDaySpring = LocalDate.of(1970, 1, 1);
 
