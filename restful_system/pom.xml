@@ -79,7 +79,7 @@
                         </volume>
                     </volumes>
                     <images>
-                        <!--image>
+                        <image>
                             <name>database:1.0</name>
                             <alias>mysql</alias>
                             <build>
@@ -106,7 +106,7 @@
                                     <time>20000</time>
                                 </wait>
                             </run>
-                        </image-->
+                        </image>
                         <image>
                             <alias>${fds.exam.name}</alias>
                             <name>fds-${fds.exam.name}-template:1.0</name>

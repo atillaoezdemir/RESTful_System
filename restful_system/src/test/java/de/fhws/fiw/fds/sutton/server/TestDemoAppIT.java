@@ -2,7 +2,7 @@ package de.fhws.fiw.fds.sutton.server;
 
 
 import com.github.javafaker.Faker;
-import de.fhws.fiw.fds.suttondemo.client.models.ModuleClientModel;
+import de.fhws.fiw.fds.suttondemo.client.models.UniversityClientModel;
 import de.fhws.fiw.fds.suttondemo.client.rest.DemoRestClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,50 +30,61 @@ public class TestDemoAppIT {
     }
 
     @Test
-    public void test_dispatcher_is_get_all_persons_allowed() throws IOException {
+    public void test_dispatcher_is_get_all_universities_allowed() throws IOException {
         client.start();
-        assertTrue(client.isGetAllPersonsAllowed());
+        assertTrue(client.isGetAllUniversitiesAllowed());
     }
 
     @Test
-    public void test_create_person_is_create_person_allowed() throws IOException {
+    public void test_create_university_is_create_university_allowed() throws IOException {
         client.start();
-        assertTrue(client.isCreatePersonAllowed());
+        assertTrue(client.isCreateUniversityAllowed());
     }
 
-    @Test void test_create_person() throws IOException
+    @Test
+    public void test_create_university() throws IOException
     {
         client.start();
 
-        var person = new ModuleClientModel();
-        person.setFirstName("Max");
-        person.setLastName("Mustermann");
-        person.setBirthDate(LocalDate.of( 1990, 1, 1));
-        person.setEmailAddress("max.mustermann@thws.de");
+        var university = new UniversityClientModel();
+        university.setUniName("University");
+        university.setCountry("Germany");
+        university.setDepartmant("Informatik");
+        university.setDepartmantUrl("www.university.de");
+        university.setContactPerson("Max Mustermann");
+        university.setSendStudents(15);
+        university.setAcceptStudents(30);
+        university.setFirstDaySpring(LocalDate.of( 2000, 3, 15));
+        university.setFirstDayAutumn(LocalDate.of( 2000, 10, 1));
 
-        client.createPerson(person);
+        client.createUniversity(university);
         assertEquals(201, client.getLastStatusCode());
     }
 
-    @Test void test_create_person_and_get_new_person() throws IOException
+    @Test void test_create_university_and_get_new_university() throws IOException
     {
         client.start();
 
-        var person = new ModuleClientModel();
-        person.setFirstName("Max");
-        person.setLastName("Mustermann");
-        person.setBirthDate(LocalDate.of( 1990, 1, 1));
-        person.setEmailAddress("max.mustermann@thws.de");
+        var university = new UniversityClientModel();
+        university.setUniName("University");
+        university.setCountry("Germany");
+        university.setDepartmant("Informatik");
+        university.setDepartmantUrl("www.university.de");
+        university.setContactPerson("Max Mustermann");
+        university.setSendStudents(15);
+        university.setAcceptStudents(30);
+        university.setFirstDaySpring(LocalDate.of( 2000, 3, 15));
+        university.setFirstDayAutumn(LocalDate.of( 2000, 10, 1));
 
-        client.createPerson(person);
+        client.createUniversity(university);
         assertEquals(201, client.getLastStatusCode());
-        assertTrue( client.isGetSinglePersonAllowed() );
+        assertTrue( client.isGetSingleUniversityAllowed() );
 
-        client.getSinglePerson();
+        client.getSingleUniversity();
         assertEquals(200, client.getLastStatusCode());
 
-        var personFromServer = client.personData().getFirst();
-        assertEquals( "Mustermann", personFromServer.getLastName() );
+        var universityFromServer = client.universityData().getFirst();
+        assertEquals( "University", universityFromServer.getUniName() );
     }
 
     @Test void test_create_5_person_and_get_all() throws IOException
@@ -86,27 +97,32 @@ public class TestDemoAppIT {
         for( int i=0; i<5; i++ ) {
             client.start();
 
-            var person = new ModuleClientModel();
-            person.setFirstName(faker.name().firstName());
-            person.setLastName(faker.name().lastName());
-            person.setBirthDate(LocalDate.of(1990, 1, 1));
-            person.setEmailAddress(faker.internet().emailAddress());
+            var university = new UniversityClientModel();
+            university.setUniName(faker.university().name());
+            university.setCountry(faker.country().name());
+            university.setDepartmant("Informatik");
+            university.setDepartmantUrl(faker.internet().url());
+            university.setContactPerson(faker.educator().university());
+            university.setSendStudents(faker.number().numberBetween(0, 100));
+            university.setAcceptStudents(faker.number().numberBetween(0, 100));
+            university.setFirstDaySpring(LocalDate.of( 20024, 3, 15));
+            university.setFirstDayAutumn(LocalDate.of( 2024, 10, 1));
 
-            client.createPerson(person);
+            client.createUniversity(university);
             assertEquals(201, client.getLastStatusCode());
         }
 
         /* Now we call the dispatcher to get the URL to get all persons */
         client.start();
-        assertTrue( client.isGetAllPersonsAllowed() );
+        assertTrue( client.isGetAllUniversitiesAllowed() );
 
-        client.getAllPersons();
+        client.getAllUniversities();
         assertEquals(200, client.getLastStatusCode());
-        assertEquals(5, client.personData().size());
+        assertEquals(5, client.universityData().size());
 
         /* Set the cursor to the first person, not really necessary, but to make it clear here */
-        client.setPersonCursor(0);
-        client.getSinglePerson();
+        client.setUniversityCursor(0);
+        client.getSingleUniversity();
         assertEquals(200, client.getLastStatusCode());
     }
 }

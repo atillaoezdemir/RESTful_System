@@ -111,7 +111,7 @@ public class GetAllUniversities extends AbstractGetCollectionState<Response, Uni
                 this.uriInfo,
                 this.suttonResponse,
                 orderUriCountry,
-                "reverseSearchOrderByName",
+                "reverseSearchOrderCountry",
                 getAcceptRequestHeader()
         );
     }
