@@ -64,13 +64,13 @@ is available at `http://localhost:8080/demo/api`.
 
 ### Use Docker
 
-### For manual testing 
+#### For manual testing 
 
 Use file `src/main/docker/Dockerfile` as an example how to create a Docker image for the demo application. You first need to build 
 the WAR file of the demo application using `mvn package`. Then execute `$> docker build .` (don't forget the point after `build`) to 
 create an image. Finally, execute `$> docker run -p 8080:8080 --rm <IMAGE_ID>` to start the container.
 
-### For integration testing
+#### For integration testing
 
 Go to restful_system directory and call `mvn verify` to start the integration tests. This will create a Docker image and start a container
 for the demo application. Then the integration tests will be executed. Finally, the container will be stopped and removed. All integration 
