@@ -44,7 +44,7 @@ The Sutton framework only provides an in-memory storage implementation. However,
 PostgreSQL, or MongoDB. To make it easier to switch between different database implementations, we use the [Data Access Object (DAO) pattern](https://en.wikipedia.org/wiki/Data_access_object). For every resource, you need to provide an interface that extends the `IDatabaseAccessObject`
 interface. This interface defines the methods that are needed to access the database. However, it is necessary to add methods for all queries
 you want to offer. In the demo application, you can find an example of such an interface in the `UniversityDao` interface. The in-memory storage 
-implementation that is part of the Sutton framework must then be used as shown in class `PersonStorage`. Here again, you only need to implement
+implementation that is part of the Sutton framework must then be used as shown in class `UniversityStorage`. Here again, you only need to implement
 the methods for queries you want to offer.
 
 It should be added tht you can implement your own database layer by using Hibernate or some other ORM framework. In this case, you would 
