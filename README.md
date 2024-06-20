@@ -3,11 +3,7 @@
 This repository belongs to the module "Foundations of Distributed Systems" at the Technical University of
 Applied Sciences Würzburg-Schweinfurt. It contains the Sutton Framework and a demo application that uses the framework.
 
-## Differences between the version used in the videos and this version
-
-This version of Sutton is a bit different from the version used in the videos. The main differences are:
-
-### New version of some libraries
+## Required libraries and their versions
 
 * It uses Java 21 (without any VM arguments to disable the Java module system)
 * It uses Tomcat 10 (instead of Tomcat 8)
