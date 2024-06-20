@@ -15,18 +15,6 @@ Applied Sciences Würzburg-Schweinfurt. It contains the Sutton Framework and a d
 
 The Sutton classes are **not** dependent on Jersey anymore. This means that you can use Sutton with any other REST framework. 
 We have already successfully tested it with Spring. However, to reduce complexity, we still use Jersey in the demo application.
-If you want to use Sutton with Spring, let me know, and I will provide you with an example.
-
-### Changes in the Sutton Framework
-
-We removed the Builder pattern from the `AbstractState` class. Instead, we pass all parameters to the constructor of the `AbstractState` class 
-or their subclasses. This makes the code easier to understand and reduces the number of classes and lines of code you have to write. 
-
-In case of GET collection requests, the query parameters and also the paging parameters are wrapped into a class of type `AbstractQuery` (and its subclasses). This
-query class also implements how to access the database layer. 
-
-Because Sutton is not dependent on Jersey anymore, the `@InjectLink` should not be used anymore. Instead, use the
-`@SuttonLink` annotation which has a very similar interface. See class `PersonModel` for an example.
 
 ## How to use the Sutton Framework
 
@@ -45,26 +33,29 @@ In combination with the in-memory storage implementation, you can quickly create
 As shown in the videos, you first need a service class that is responsible for processing all HTTP requests at a specific URL. In this 
 class, you implement methods for handling all kind of HTTP requests (GET, POST, PUT, DELETE). Each of these methods should
 delegate the processing of the request to a class that extends `AbstractState`. In the demo application, you can find an example
-of such a service class in the `PersonService` class.
+of such a service class in the `UniversityService` class.
 
 Next, you need to create a class that extends `AbstractState` or one of its subclasses. In this class, you implement the abstract methods
-like `loadModelById` or `defineTransitionLinks`. In the demo application, you can find an example of such a class in the `GetSinglePerson` class.
+like `loadModelById` or `defineTransitionLinks`. In the demo application, you can find an example of such a class in the `GetSingleUniversity` class.
 
 ### The database layer
 
-The Sutton framework only provides an in-memory storage implementation. This implementation can be used for the implementation of the 
-portfolio assignment. However, in a real-world application, you would use a database like MySQL, PostgreSQL, or MongoDB. To make it easier
-to switch between different database implementations, we use the [Data Access Object (DAO) pattern](https://en.wikipedia.org/wiki/Data_access_object).
-For every resource, you need to provide an interface that extends the `IDatabaseAccessObject` interface. This interface defines the methods
-that are needed to access the database. However, it is necessary to add methods for all queries you want to offer. 
-In the demo application, you can find an example of such an interface in the `PersonDao` interface. The in-memory storage implementation that is
-part of the Sutton framework must then be used as shown in class `PersonStorage`. Here again, you only need to implement the methods for 
-queries you want to offer.
+The Sutton framework only provides an in-memory storage implementation. However, in a real-world application, you would use a database like MySQL, 
+PostgreSQL, or MongoDB. To make it easier to switch between different database implementations, we use the [Data Access Object (DAO) pattern](https://en.wikipedia.org/wiki/Data_access_object). For every resource, you need to provide an interface that extends the `IDatabaseAccessObject`
+interface. This interface defines the methods that are needed to access the database. However, it is necessary to add methods for all queries
+you want to offer. In the demo application, you can find an example of such an interface in the `UniversityDao` interface. The in-memory storage 
+implementation that is part of the Sutton framework must then be used as shown in class `PersonStorage`. Here again, you only need to implement
+the methods for queries you want to offer.
 
 It should be added tht you can implement your own database layer by using Hibernate or some other ORM framework. In this case, you would 
 use class `DaoFactory` to decide which implementation (in-memory storage or Hibernate) to use.
 
 ## How to start the demo application
+
+## Prerequisites
+
+The libraries under the 'Required libraries and their versions' heading must be ready for use, that is, the necessary download, installation 
+and configuration stages must be completed.
 
 ### Use class `Start`
 
